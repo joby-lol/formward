@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace Formward\SystemFields;
 
+include_once __DIR__.'/../fake-session.php';
+
 use PHPUnit\Framework\TestCase;
 
 class TokenTest extends TestCase
@@ -11,9 +13,12 @@ class TokenTest extends TestCase
 
     public function setUp()
     {
+        //fake user-agent and IP
         $_SERVER['HTTP_USER_AGENT'] = 'phpunit';
         $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
-        $_SESSION = $_REQUEST = $_GET = $_POST = array();
+        //fake session storage
+        $GLOBALS['FAKESESSID'] = null;
+        $GLOBALS['FAKESESSIONS'] = array();
     }
 
     public function testNaming()
