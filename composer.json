@@ -1,0 +1,34 @@
+{
+    "name": "byjoby/formward",
+    "description": "Forms with sane defaults and simple interfaces to skip the boilerplate code and just put a form on the page",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [{
+        "name": "Joby Elliott",
+        "email": "joby@byjoby.com"
+    }],
+    "require": {
+        "byjoby/sesh": "^0.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Formward\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Formward\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.3",
+        "stevegrunwell/phpunit-markup-assertions": "^1.2"
+    }
+}
