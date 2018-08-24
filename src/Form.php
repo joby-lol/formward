@@ -150,7 +150,7 @@ class Form extends AbstractContainer implements FormInterface
         //basic output
         $out = [
             $this->validationMessagesHTML(),
-            parent::htmlTagContent()
+            parent::htmlContent()
         ];
         //add system fields if necessary
         if ($this->systemFields) {
