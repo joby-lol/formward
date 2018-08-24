@@ -10,7 +10,7 @@ class Textarea extends AbstractField
     public $tag = 'textarea';
     public $selfClosing = false;
 
-    protected function htmlTagContent() : ?string
+    protected function htmlContent() : ?string
     {
         return htmlentities($this->value());
     }
