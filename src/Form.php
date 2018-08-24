@@ -34,7 +34,7 @@ class Form extends AbstractContainer implements FormInterface
     /**
      * get/set the action to use for this form
      */
-    public function action($set = null) : string
+    public function action(string $set = null) : string
     {
         if ($set !== null) {
             $this->action = $set;
