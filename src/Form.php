@@ -16,6 +16,8 @@ class Form extends AbstractContainer implements FormInterface
     protected $oneTimeTokens = true;
     protected $csrf = true;
 
+    public $tag = 'form';
+
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
         if (!$name) {
