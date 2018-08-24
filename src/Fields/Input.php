@@ -28,6 +28,11 @@ class Input extends AbstractField
         return $attr;
     }
 
+    public function value($set = null)
+    {
+        return trim(parent::value($set));
+    }
+
     public function type(string $type = null)
     {
         return $this->attr('type', $type);

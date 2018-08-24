@@ -6,8 +6,8 @@ use Formward\FieldInterface;
 
 abstract class AbstractValidator implements ValidatorInterface
 {
-    private $field;
-    private $message;
+    protected $field;
+    protected $message;
 
     public function field(FieldInterface &$set = null) : ?FieldInterface
     {

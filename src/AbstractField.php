@@ -30,6 +30,7 @@ abstract class AbstractField extends GenericTag implements FieldInterface, TagIn
     {
         $attr = parent::htmlAttributes();
         $attr['id'] = $this->name();
+        $attr['name'] = $this->name();
         return $attr;
     }
 

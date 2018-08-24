@@ -55,6 +55,7 @@ trait ValidatorTrait
 
     public function addValidator(string $name, ValidatorInterface $validator)
     {
+        $validator->field($this);
         $this->validators[$name] = $validator;
     }
 

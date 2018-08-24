@@ -1,0 +1,30 @@
+/*
+This file is some really basic CSS just to get the example scripts to make
+passably nice outputs.
+ */
+
+.Container {
+  border: 1px solid #ccc;
+  padding: 1em;
+}
+
+.Form {
+  padding: 0 1em;
+  border: 1px solid #eee;
+}
+
+.FieldWrapper {
+  background: #eee;
+  padding: 1em;
+  margin: 1em 0;
+}
+
+.FieldWrapper-Button {
+  padding: 0;
+  background: transparent;
+}
+
+.Form label {
+  font-weight: bold;
+  display: block;
+}

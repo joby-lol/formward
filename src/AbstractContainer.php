@@ -114,17 +114,6 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     }
 
     /**
-     * Whenever my method is changed, also change my children
-     */
-    public function method($method = null)
-    {
-        foreach ($this as $item) {
-            $item->method(parent::method($method));
-        }
-        return parent::method($method);
-    }
-
-    /**
      * Convert an item into a string for this container's markup output
      */
     protected function containerItemHtml($item)

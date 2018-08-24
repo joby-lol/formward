@@ -4,6 +4,6 @@ namespace Formward\SystemFields;
 
 interface TokenInterface
 {
-    public function test(?string $token) : bool;
+    public function test(?string $token = null) : bool;
     public function clear() : void;
 }

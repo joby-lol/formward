@@ -11,11 +11,23 @@ class TokenNoCSRF extends AbstractSystemField implements TokenInterface
         return false;
     }
 
+    protected function htmlAttributes()
+    {
+        $attr = parent::htmlAttributes();
+        if ($value = $this->value()) {
+            $attr['value'] = $value;
+        }
+        return $attr;
+    }
+
     /**
      * Check a value against my token
      */
-    public function test(?string $token) : bool
+    public function test(?string $token = null) : bool
     {
+        if (!$token) {
+            $token = $this->submittedValue();
+        }
         return $token == $this->value();
     }
 

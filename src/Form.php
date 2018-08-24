@@ -80,9 +80,7 @@ class Form extends AbstractContainer implements FormInterface
     public function submitted() : bool
     {
         if ($this->submitted === null) {
-            $this->submitted = $this->systemFields['token']->test(
-                $this->systemFields['token']->submittedValue()
-            );
+            $this->submitted = $this->systemFields['token']->test();
             if ($this->submitted && $this->oneTimeTokens()) {
                 $this->systemFields['token']->clear();
             }
@@ -171,16 +169,24 @@ class Form extends AbstractContainer implements FormInterface
      * Return the attributes that a field should have. This function may need
      * overriding in some cases.
      */
-    protected function fieldAttributes()
+    protected function htmlAttributes()
     {
-        $out = parent::fieldAttributes();
-        $out['method'] = $this->method();
-        $out['action'] = $this->action();
-        return $out;
+        $attr = parent::htmlAttributes();
+        $attr['method'] = $this->method();
+        $attr['action'] = $this->action();
+        return $attr;
     }
 
     protected function htmlTag()
     {
         return 'form';
+    }
+
+    public function __toString()
+    {
+        if ($this->submitted()) {
+            $this->validate();
+        }
+        return parent::__toString();
     }
 }

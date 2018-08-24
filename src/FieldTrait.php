@@ -93,7 +93,10 @@ trait FieldTrait
      */
     public function required($set = null)
     {
-        if ($set) {
+        if ($set !== null) {
+            if ($set) {
+                $this->addValidator('required', new Validators\Required());
+            }
             $this->required = $set;
         }
         return $this->required;
@@ -128,6 +131,11 @@ trait FieldTrait
      */
     public function method($set = null)
     {
+        //if there is a parent, use its method and ignore ours
+        if ($this->parent()) {
+            return $this->parent()->method();
+        }
+        //otherwise set method to either get or post
         if ($set !== null) {
             if ($set != 'get') {
                 $set = 'post';
