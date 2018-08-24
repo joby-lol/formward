@@ -11,6 +11,11 @@ class Form extends AbstractContainer implements FormInterface
     public $invalidFn;
     public $notSubmittedFn;
 
+    protected $action = '#';
+    protected $submitted = null;
+    protected $oneTimeTokens = true;
+    protected $csrf = true;
+
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
         if (!$name) {
@@ -29,9 +34,12 @@ class Form extends AbstractContainer implements FormInterface
     /**
      * get/set the action to use for this form
      */
-    public function action(string $action = null) : string
+    public function action($set = null) : string
     {
-        return $this->valueFunction('action', $action, '#');
+        if ($set !== null) {
+            $this->action = $set;
+        }
+        return $this->action;
     }
 
     protected function setupToken()
@@ -68,29 +76,32 @@ class Form extends AbstractContainer implements FormInterface
 
     public function submitted() : bool
     {
-        if ($this->valueFunction('submitted') === null) {
-            $this->valueFunction('submitted', $this->systemFields['token']->test(
+        if ($this->submitted === null) {
+            $this->submitted = $this->systemFields['token']->test(
                 $this->systemFields['token']->submittedValue()
-            ));
-            if ($this->valueFunction('submitted') && $this->oneTimeTokens()) {
+            );
+            if ($this->submitted && $this->oneTimeTokens()) {
                 $this->systemFields['token']->clear();
             }
         }
-        return $this->valueFunction('submitted');
+        return $this->submitted;
     }
 
-    public function oneTimeTokens(bool $set = null) : bool
+    public function oneTimeTokens($set = null) : bool
     {
-        return $this->valueFunction('oneTimeTokens', $set, true);
-    }
-
-    public function csrf(bool $set = null) : bool
-    {
-        $out = $this->valueFunction('csrf', $set, true);
         if ($set !== null) {
+            $this->oneTimeTokens = $set;
+        }
+        return $this->oneTimeTokens;
+    }
+
+    public function csrf($set = null) : bool
+    {
+        if ($set !== null) {
+            $this->csrf = $set;
             $this->setupToken();
         }
-        return $out;
+        return $this->csrf;
     }
 
     public function tokenName() : string

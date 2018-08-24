@@ -7,38 +7,29 @@ use Formward\FieldInterface;
 
 class Input extends AbstractField
 {
+    public $tag = 'input';
+    public $selfClosing = true;
+
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
         parent::__construct($label, $name, $parent);
         $this->attr('type', 'text');
     }
 
+    protected function htmlAttributes()
+    {
+        $attr = parent::htmlAttributes();
+        if ($value = $this->value()) {
+            $attr['value'] = $value;
+        }
+        if ($this->required()) {
+            $attr['required'] = 'true';
+        }
+        return $attr;
+    }
+
     public function type(string $type = null)
     {
         return $this->attr('type', $type);
-    }
-
-    /**
-     * Return the attributes that a field should have. This function may need
-     * overriding in some cases.
-     */
-    protected function fieldAttributes()
-    {
-        $out = parent::fieldAttributes();
-        $out['value'] = $this->value();
-        if ($this->required()) {
-            $out['required'] = 'true';
-        }
-        return $out;
-    }
-
-    protected function htmlTag()
-    {
-        return 'input';
-    }
-
-    protected function htmlTagSelfClosing()
-    {
-        return true;
     }
 }

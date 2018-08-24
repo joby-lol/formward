@@ -2,6 +2,8 @@
 /* Formward | https://gitlab.com/byjoby/formward | MIT License */
 namespace Formward;
 
-interface ContainerInterface
+use Flatrr\FlatArrayInterface;
+
+interface ContainerInterface extends FlatArrayInterface
 {
 }

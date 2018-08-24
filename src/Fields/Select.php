@@ -7,6 +7,8 @@ use Formward\FieldInterface;
 
 class Select extends AbstractField
 {
+    protected $options = [];
+
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
         parent::__construct($label, $name, $parent);
@@ -15,7 +17,10 @@ class Select extends AbstractField
 
     public function options(array $set = null) : ?array
     {
-        return $this->valueFunction('select_options', $set);
+        if ($set) {
+            $this->options = $set;
+        }
+        return $this->options;
     }
 
     protected function htmlTagContent() : ?string

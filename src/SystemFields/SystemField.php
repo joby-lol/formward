@@ -18,7 +18,7 @@ abstract class SystemField extends AbstractField
      * prefix all system field names with an _ to prevent collisions with
      * user-space fields
      */
-    public function name(string $name = null)
+    public function name($name = null)
     {
         return '_'.parent::name($name);
     }

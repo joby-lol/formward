@@ -2,11 +2,11 @@
 /* Formward | https://gitlab.com/byjoby/formward | MIT License */
 namespace Formward\Validators;
 
-use Digraph\Utilities\ValueFunctionTrait;
-
 trait ValidatorTrait
 {
-    private $validators = array();
+    protected $validators = [];
+    protected $validated = null;
+    protected $validationMessage = null;
 
     /**
      * run validation functions and objects to determine whether to return true
@@ -37,14 +37,20 @@ trait ValidatorTrait
         return $this->validated(true);
     }
 
-    public function validated(bool $set = null) : ?bool
+    public function validated($set = null) : ?bool
     {
-        return static::valueFunction('validated', $set);
+        if ($set !== null) {
+            $this->validated = $set;
+        }
+        return $this->validated;
     }
 
-    public function validationMessage(string $set = null)
+    public function validationMessage($set = null)
     {
-        return static::valueFunction('validationMessage', $set);
+        if ($set !== null) {
+            $this->validationMessage = $set;
+        }
+        return $this->validationMessage;
     }
 
     public function addValidator(string $name, ValidatorInterface $validator)

@@ -2,15 +2,30 @@
 /* Formward | https://gitlab.com/byjoby/formward | MIT License */
 namespace Formward;
 
-abstract class AbstractContainer extends AbstractField implements ContainerInterface, \ArrayAccess, \Iterator
+use Flatrr\FlatArrayTrait;
+
+abstract class AbstractContainer extends AbstractField implements ContainerInterface
 {
-    protected $classes = array('Container');
+    use FlatArrayTrait;
 
-    private $arrayAccessData = array();
-    private $iteratorArrayMap = array();
-    private $changed = false;
-    private $iterPos;
+    protected $method = 'post';
+    public $tag = 'div';
+    public $selfClosing = false;
 
+    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
+    {
+        parent::__construct($label, $name, $parent);
+        $this->removeClass('Field');
+        $this->addClass('Container');
+    }
+
+    public function set(?string $name, $value)
+    {
+        $value->parent($this);
+        $value->name($name);
+        //this is from FlatArrayTrait
+        return $this->flattenSearch($name, $value);
+    }
 
     public function default($default = null)
     {
@@ -27,7 +42,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
         return $this->recurse('submittedValue');
     }
 
-    public function validationMessage(string $set = null)
+    public function validationMessage($set = null)
     {
         $out = array();
         if (parent::validationMessage($set)) {
@@ -70,7 +85,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
             $this->validated(true);
         }
         //then do our children's validation
-        foreach ($this->arrayAccessData as $offset => $item) {
+        foreach ($this as $item) {
             if (!$item->validate()) {
                 $this->validated(false);
             }
@@ -86,7 +101,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     protected function recurse(string $method, array $value = null) : array
     {
         $out = array();
-        foreach ($this->arrayAccessData as $offset => $item) {
+        foreach ($this as $offset => $item) {
             $out[$offset] = $item->$method($value?$value[$offset]:null);
         }
         return $out;
@@ -94,21 +109,20 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
 
     protected function recursiveSet(string $method, $value) : void
     {
-        foreach ($this->arrayAccessData as $offset => $item) {
-            $out[$offset] = $item->$method($value);
+        foreach ($this as $item) {
+            $item->$method($value);
         }
     }
 
     /**
      * Whenever my method is changed, also change my children
      */
-    public function method(string $method = null) : string
+    public function method($method = null)
     {
-        $return = parent::method($method);
-        foreach ($this->arrayAccessData as $item) {
+        foreach ($this as $item) {
             $item->method(parent::method($method));
         }
-        return $return;
+        return parent::method($method);
     }
 
     /**
@@ -142,144 +156,13 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     /**
      * HTML tag content is a list of all the elements in this container
      */
-    protected function htmlTagContent() : ?string
+    protected function htmlContent() : ?string
     {
         return PHP_EOL.implode(PHP_EOL, array_map(
             function ($item) {
                 return $this->containerItemHtml($item);
             },
-            $this->arrayAccessData
+            $this->get()
         )).PHP_EOL;
-    }
-
-    protected function htmlTag()
-    {
-        return 'div';
-    }
-
-    protected function htmlTagSelfClosing()
-    {
-        return false;
-    }
-
-    /**
-     * Rebuild the map of what order keys should be iterated over.
-     */
-    private function buildIterMap()
-    {
-        $this->iteratorArrayMap = array();
-        foreach ($this->arrayAccessData as $key => $value) {
-            $this->iteratorArrayMap[] = $key;
-        }
-    }
-
-    /**
-     * Add an item to the front of the form
-     */
-    public function unshift($offset, $value)
-    {
-        $value->parent($this);
-        $value->name($offset);
-        $value->method($this->method());
-        $this->arrayAccessData = array_merge(
-            array($offset,$value),
-            $this->arrayAccessData
-        );
-        $this->buildIterMap();
-    }
-
-    /**
-     * Inherited from \ArrayAccess
-     */
-    public function offsetSet($offset, $value)
-    {
-        $value->parent($this);
-        $value->name($offset);
-        $value->method($this->method());
-        $this->arrayAccessData[$offset] = $value;
-        $this->buildIterMap();
-    }
-
-    /**
-     * Inherited from \ArrayAccess
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->arrayAccessData[$offset]);
-    }
-
-    /**
-     * Inherited from \ArrayAccess
-     */
-    public function offsetUnset($offset)
-    {
-        if (isset($this->arrayAccessData[$offset])) {
-            $this->setChanged(true);
-        }
-        unset($this->arrayAccessData[$offset]);
-        $this->buildIterMap();
-    }
-
-    /**
-     * Return a reference to an item in arrayAccessData
-     */
-    protected function &getRef($offset)
-    {
-        return $this->arrayAccessData[$offset];
-    }
-
-    /**
-     * Inherited from \ArrayAccess
-     */
-    public function offsetGet($offset)
-    {
-        if (isset($this->arrayAccessData[$offset])) {
-            return $this->getRef($offset);
-        }
-        return null;
-    }
-
-    /**
-     * Inherited from \Iterator
-     */
-    public function rewind()
-    {
-        $this->iterPos = 0;
-    }
-
-    /**
-     * Inherited from \Iterator
-     */
-    public function &current()
-    {
-        if (isset($this->arrayAccessData[$this->key()])) {
-            return $this->arrayAccessData[$this->key()];
-        }
-        $return = null;
-        return $return;
-    }
-
-    /**
-     * Inherited from \Iterator
-     */
-    public function key()
-    {
-        return isset($this->iteratorArrayMap[$this->iterPos]) ? $this->iteratorArrayMap[$this->iterPos] : null;
-    }
-
-    /**
-     * Inherited from \Iterator
-     */
-    public function next()
-    {
-        $this->iterPos++;
-    }
-
-    /**
-     * Inherited from \Iterator
-     */
-    public function valid()
-    {
-        return isset($this->arrayAccessData[$this->key()]);
     }
 }
