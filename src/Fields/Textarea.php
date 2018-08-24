@@ -7,24 +7,11 @@ use Formward\FieldInterface;
 
 class Textarea extends AbstractField
 {
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
-    {
-        parent::__construct($label, $name, $parent);
-        $this->attr('type', 'text');
-    }
+    public $tag = 'textarea';
+    public $selfClosing = false;
 
     protected function htmlTagContent() : ?string
     {
         return htmlentities($this->value());
-    }
-
-    protected function htmlTag()
-    {
-        return 'textarea';
-    }
-
-    protected function htmlTagSelfClosing()
-    {
-        return false;
     }
 }

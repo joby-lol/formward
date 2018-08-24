@@ -9,6 +9,9 @@ class Select extends AbstractField
 {
     protected $options = [];
 
+    public $tag = 'select';
+    public $selfClosing = false;
+
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
         parent::__construct($label, $name, $parent);
@@ -40,15 +43,5 @@ class Select extends AbstractField
             $this->tip('Configuration problem: no options specified');
         }
         return implode(PHP_EOL, $opts);
-    }
-
-    protected function htmlTag()
-    {
-        return 'select';
-    }
-
-    protected function htmlTagSelfClosing()
-    {
-        return false;
     }
 }

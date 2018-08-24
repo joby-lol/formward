@@ -3,10 +3,18 @@
 namespace Formward\Fields;
 
 use Formward\AbstractField;
+use Formward\FieldInterface;
 
 class Button extends AbstractField
 {
-    protected $classes = array('Button');
+    public $tag = 'button';
+    public $selfClosing = false;
+
+    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
+    {
+        parent::__construct($label, $name, $parent);
+        $this->addClass('Button');
+    }
 
     public function wrapperContentOrder() : array
     {
@@ -15,18 +23,8 @@ class Button extends AbstractField
         );
     }
 
-    protected function htmlTagContent()
+    protected function htmlContent()
     {
         return $this->label();
-    }
-
-    protected function htmlTag()
-    {
-        return 'button';
-    }
-
-    protected function htmlTagSelfClosing()
-    {
-        return false;
     }
 }

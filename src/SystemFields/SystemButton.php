@@ -3,16 +3,15 @@
 namespace Formward\SystemFields;
 
 use Formward\AbstractField;
+use Formward\FieldInterface;
+use Formward\Fields\Button;
 
-class SystemButton extends AbstractField
+class SystemButton extends Button
 {
-    protected $classes = array('Button','SystemButton');
-
-    public function wrapperContentOrder() : array
+    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
-        return array(
-            '{field}'
-        );
+        parent::__construct($label, $name, $parent);
+        $this->addClass('SystemButton');
     }
 
     /**
@@ -22,39 +21,5 @@ class SystemButton extends AbstractField
     public function name($name = null)
     {
         return '_'.parent::name($name);
-    }
-
-    /**
-     * Buttons don't get names
-     */
-    protected function fieldAttributes()
-    {
-        $out = parent::fieldAttributes();
-        unset($out['name']);
-        return $out;
-    }
-
-    /**
-     * Buttons get their labels wrapped in the button tag, not as an attribute
-     */
-    protected function htmlTagContent() : ?string
-    {
-        return $this->label();
-    }
-
-    /**
-     * button tag
-     */
-    protected function htmlTag()
-    {
-        return 'button';
-    }
-
-    /**
-     * Not self-closing
-     */
-    protected function htmlTagSelfClosing()
-    {
-        return false;
     }
 }

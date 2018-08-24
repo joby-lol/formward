@@ -5,7 +5,7 @@ namespace Formward\SystemFields;
 use Formward\FieldInterface;
 use Formward\AbstractField;
 
-abstract class SystemField extends AbstractField
+abstract class AbstractSystemField extends AbstractField
 {
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
@@ -25,18 +25,8 @@ abstract class SystemField extends AbstractField
 
     protected function fieldAttributes()
     {
-        $out = parent::fieldAttributes();
-        $out['value'] = $this->value();
-        return $out;
-    }
-
-    protected function htmlTag()
-    {
-        return 'input';
-    }
-
-    protected function htmlTagSelfClosing()
-    {
-        return true;
+        $attr = parent::fieldAttributes();
+        $attr['value'] = $this->value();
+        return $attr;
     }
 }

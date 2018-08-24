@@ -15,10 +15,10 @@ class Password extends Input
     /**
      * Passwords don't get their value put back out in HTML
      */
-    protected function fieldAttributes()
+    protected function htmlAttributes()
     {
-        $out = parent::fieldAttributes();
-        unset($out['value']);
-        return $out;
+        $attr = parent::htmlAttributes();
+        unset($attr['value']);
+        return $attr;
     }
 }

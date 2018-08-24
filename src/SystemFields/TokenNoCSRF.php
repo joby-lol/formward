@@ -2,10 +2,9 @@
 /* Formward | https://gitlab.com/byjoby/formward | MIT License */
 namespace Formward\SystemFields;
 
-use Formward\FieldInterface;
 use Digraph\Session\SessionTrait;
 
-class TokenNoCSRF extends SystemField implements TokenInterface
+class TokenNoCSRF extends AbstractSystemField implements TokenInterface
 {
     public function containerMayWrap() : bool
     {

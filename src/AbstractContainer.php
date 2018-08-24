@@ -8,7 +8,6 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
 {
     use FlatArrayTrait;
 
-    protected $method = 'post';
     public $tag = 'div';
     public $selfClosing = false;
 

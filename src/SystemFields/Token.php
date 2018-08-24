@@ -2,10 +2,9 @@
 /* Formward | https://gitlab.com/byjoby/formward | MIT License */
 namespace Formward\SystemFields;
 
-use Formward\FieldInterface;
 use Sesh\SessionTrait;
 
-class Token extends SystemField implements TokenInterface
+class Token extends AbstractSystemField implements TokenInterface
 {
     use SessionTrait;
 
