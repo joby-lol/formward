@@ -145,7 +145,7 @@ class Form extends AbstractContainer implements FormInterface
     /**
      * Add system fields to html tag content
      */
-    protected function htmlTagContent() : ?string
+    protected function htmlContent() : ?string
     {
         //basic output
         $out = [
