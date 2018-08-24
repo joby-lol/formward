@@ -1,8 +1,7 @@
 <?php
 /**
- * This file demonstrates the bare minimum use of Formward. It will show you how
- * to create a form, add a single field to it, output the form, and check the
- * submission and validation status of the form with handle()
+ * This file demonstrates the use of Container fields, which are a special sort
+ * of container that can hold other fields inside them.
  */
 include '../vendor/autoload.php';
 @session_start();
@@ -18,11 +17,20 @@ include '../vendor/autoload.php';
 <?php
 
 // create a new form
-$form = new Formward\Form('Demo form');
+$form = new Formward\Form('Test form');
 
-// add a simple input field and mark it as required
-$form['demo'] = new Formward\Fields\Input('Demo field');
-$form['demo']->required(true);
+// add the first Container with two Inputs in it
+$form['first'] = new Formward\Fields\Container('First container');
+$form['first']['first'] = new Formward\Fields\Input('First input');
+$form['first']['second'] = new Formward\Fields\Input('Second input');
+
+// add the second Container with two Inputs in it
+$form['second'] = new Formward\Fields\Container('Second container');
+$form['second']['first'] = new Formward\Fields\Input('First input');
+$form['second']['second'] = new Formward\Fields\Input('Second input');
+
+// calling required() on $form['second'] will propagate down into child fields
+$form['second']->required(true);
 
 // output the form to the page
 echo $form;

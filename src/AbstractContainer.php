@@ -59,6 +59,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     {
         foreach ($a as $ak => $b) {
             if (is_array($b)) {
+                unset($a[$ak]);
                 foreach ($this->flatten($b) as $bk => $bv) {
                     $a[$bk] = $bv;
                 }
@@ -146,11 +147,18 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
      */
     protected function htmlContent() : ?string
     {
-        return PHP_EOL.implode(PHP_EOL, array_map(
+        $out .= '<label>'.$this->label().'</label>';
+        $out .= PHP_EOL.implode(PHP_EOL, array_map(
             function ($item) {
                 return $this->containerItemHtml($item);
             },
             $this->get()
         )).PHP_EOL;
+        return $out;
+    }
+
+    public function containerMayWrap() : bool
+    {
+        return false;
     }
 }

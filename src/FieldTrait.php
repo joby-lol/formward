@@ -95,7 +95,10 @@ trait FieldTrait
     {
         if ($set !== null) {
             if ($set) {
+                $this->addClass('required');
                 $this->addValidator('required', new Validators\Required());
+            } else {
+                $this->removeClass('required');
             }
             $this->required = $set;
         }
