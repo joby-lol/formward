@@ -87,7 +87,7 @@ class Form extends AbstractContainer implements FormInterface
         return $this->submitted;
     }
 
-    public function oneTimeTokens($set = null) : bool
+    public function oneTimeTokens(bool $set = null) : bool
     {
         if ($set !== null) {
             $this->oneTimeTokens = $set;
@@ -95,7 +95,7 @@ class Form extends AbstractContainer implements FormInterface
         return $this->oneTimeTokens;
     }
 
-    public function csrf($set = null) : bool
+    public function csrf(bool $set = null) : bool
     {
         if ($set !== null) {
             $this->csrf = $set;
