@@ -13,10 +13,33 @@ passably nice outputs.
   border: 1px solid #eee;
 }
 
+.Form .validation-messages {
+  background: #c33;
+  padding: 0 0.5em;
+  border: 1px solid #c33;
+  margin: 1em 0;
+}
+
+.Form .validation-message {
+  background: #fff;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  color: #900;
+}
+
+.Form .validation-message a {
+  text-decoration: none;
+  color: #900;
+}
+
 .FieldWrapper {
   background: #eee;
   padding: 1em;
   margin: 1em 0;
+}
+
+.FieldWrapper[data-validation="invalid"] {
+  background: #fee;
 }
 
 .FieldWrapper-Button {
