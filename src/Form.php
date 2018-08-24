@@ -22,6 +22,7 @@ class Form extends AbstractContainer implements FormInterface
             $name = md5(__FILE__.'/'.$label);
         }
         parent::__construct($label, $name, $parent);
+        $this->addClass('Form');
         $this->systemFields['submit'] = new SystemFields\Submit('Submit form', 'submit', $this);
         $this->setupToken();
     }
