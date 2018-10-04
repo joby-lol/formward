@@ -26,10 +26,10 @@ class Select extends AbstractField
         return $this->options;
     }
 
-    protected function htmlTagContent() : ?string
+    protected function htmlContent() : ?string
     {
         $opts = [];
-        if (true || !$this->required()) {
+        if (!$this->required()) {
             $opts[] = '<option value="">-- none --</option>';
         }
         if ($this->options()) {
