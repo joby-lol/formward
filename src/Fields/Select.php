@@ -36,6 +36,9 @@ class Select extends AbstractField
             foreach ($this->options() as $key => $value) {
                 $opt = '<option';
                 $opt .=  ' value="'.htmlspecialchars($key).'"';
+                if ($key == $this->value()) {
+                    $opt .= ' selected';
+                }
                 $opt .= '>'.htmlspecialchars($value).'</option>';
                 $opts[] = $opt;
             }
