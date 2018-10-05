@@ -30,7 +30,11 @@ class Input extends AbstractField
 
     public function value($set = null)
     {
-        return trim(parent::value($set));
+        $value = parent::value($set);
+        if (is_string($value)) {
+            return trim($value);
+        }
+        return $value;
     }
 
     public function type(string $type = null)

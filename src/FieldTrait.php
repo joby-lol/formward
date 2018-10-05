@@ -73,7 +73,7 @@ trait FieldTrait
      */
     public function value($set = null)
     {
-        if ($set) {
+        if ($set !== null) {
             $this->value = $set;
         }
         if ($this->value !== null) {
@@ -110,7 +110,7 @@ trait FieldTrait
      */
     public function default($set = null)
     {
-        if ($set) {
+        if ($set !== null) {
             $this->default = $set;
         }
         return $this->default;

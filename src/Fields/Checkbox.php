@@ -10,6 +10,7 @@ class Checkbox extends Input
     {
         parent::__construct($label, $name, $parent);
         $this->type('checkbox');
+        $this->default(false);
     }
 
     /**
