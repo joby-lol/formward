@@ -2,7 +2,6 @@
 This file is some really basic CSS just to get the example scripts to make
 passably nice outputs.
  */
-
 .Container {
   border: 1px solid #ccc;
   padding: 0 0.5rem;
@@ -121,4 +120,13 @@ passably nice outputs.
 
 .Form .Button.Submit:active {
   background: #00C853;
+}
+
+.Form .Field.class-Checkbox {
+  vertical-align: middle;
+}
+
+.Form .Field.class-Checkbox+label {
+  display: inline-block;
+  vartical-align: middle;
 }
