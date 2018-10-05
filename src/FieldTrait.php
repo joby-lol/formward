@@ -13,7 +13,7 @@ trait FieldTrait
     protected $method = 'post';
     protected $name;
 
-    public function addTip($tip, $name)
+    public function addTip($tip, $name=null)
     {
         if (!$name) {
             $name = md5($tip);
@@ -159,6 +159,17 @@ trait FieldTrait
             $this->parent = $set;
         }
         return $this->parent;
+    }
+
+    /**
+     * Find the root of the tree this object exists in, which may be itself
+     */
+    public function &rootParent() : FieldInterface
+    {
+        if ($this->parent) {
+            return $this->parent->rootParent();
+        }
+        return $this;
     }
 
     /**

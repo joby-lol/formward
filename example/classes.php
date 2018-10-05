@@ -19,7 +19,11 @@ include '../vendor/autoload.php';
 $form = new Formward\Form('Demo form');
 
 // add a simple input field and mark it as required
-$form['checkbox'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
+$form['checkbox1'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
+$form['checkbox1']->default(false);
+$form['checkbox2'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
+$form['checkbox2']->default(true);
+$form['checkbox2']->addTip('This one is on by default, but should still know when it\'s unchecked');
 
 // output the form to the page
 echo $form;
