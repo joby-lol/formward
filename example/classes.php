@@ -25,6 +25,8 @@ $form['checkbox2'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
 $form['checkbox2']->default(true);
 $form['checkbox2']->addTip('This one is on by default, but should still know when it\'s unchecked');
 
+$form['url'] = new Formward\Fields\Url('Formward\\Fields\\Url');
+
 // output the form to the page
 echo $form;
 
