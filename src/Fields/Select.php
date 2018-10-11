@@ -18,6 +18,15 @@ class Select extends AbstractField
         $this->attr('type', 'text');
     }
 
+    public function value($set = null)
+    {
+        $value = parent::value($set);
+        if (!isset($this->options[$value])) {
+            $value = null;
+        }
+        return $value;
+    }
+
     public function options(array $set = null) : ?array
     {
         if ($set) {
