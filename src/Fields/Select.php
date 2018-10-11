@@ -43,7 +43,7 @@ class Select extends AbstractField
                 $opts[] = $opt;
             }
         } else {
-            $this->tip('Configuration problem: no options specified');
+            $this->addTip('Configuration problem: no options specified');
         }
         return implode(PHP_EOL, $opts);
     }
