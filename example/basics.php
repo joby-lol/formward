@@ -24,6 +24,10 @@ $form = new Formward\Form('Demo form');
 $form['demo'] = new Formward\Fields\Input('Demo field');
 $form['demo']->required(true);
 
+// add a simple input field and mark it as required
+$form['disabled'] = new Formward\Fields\Input('Disabled field');
+$form['disabled']->disabled(true);
+
 // output the form to the page
 echo $form;
 

@@ -13,6 +13,7 @@ interface FieldInterface extends TagInterface
     public function default($default = null);
 
     public function required($required = null);
+    public function disabled($disabled = null);
     public function validate() : bool;
     public function validated() : ?bool;
     public function validationMessage();

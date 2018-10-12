@@ -8,6 +8,7 @@ trait FieldTrait
     protected $tips = array();
     protected $value;
     protected $required;
+    protected $disabled = false;
     protected $default;
     protected $label;
     protected $method = 'post';
@@ -103,6 +104,22 @@ trait FieldTrait
             $this->required = $set;
         }
         return $this->required;
+    }
+
+    /**
+     * get/set whether this field is disabled
+     */
+    public function disabled($set = null)
+    {
+        if ($set !== null) {
+            if ($set) {
+                $this->addClass('disabled');
+            } else {
+                $this->removeClass('disabled');
+            }
+            $this->disabled = $set;
+        }
+        return $this->disabled;
     }
 
     /**

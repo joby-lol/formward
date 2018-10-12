@@ -25,6 +25,9 @@ class Input extends AbstractField
         if ($this->required()) {
             $attr['required'] = 'true';
         }
+        if ($this->disabled()) {
+            $attr['disabled'] = true;
+        }
         return $attr;
     }
 

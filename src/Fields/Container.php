@@ -16,4 +16,15 @@ class Container extends AbstractContainer
         }
         return parent::required($set);
     }
+
+    /**
+     * get/set whether this field is disabled
+     */
+    public function disabled($set = null)
+    {
+        if ($set !== null) {
+            $this->recursiveSet('disabled', $set);
+        }
+        return parent::disabled($set);
+    }
 }
