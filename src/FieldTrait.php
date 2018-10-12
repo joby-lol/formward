@@ -138,7 +138,7 @@ trait FieldTrait
      */
     public function label($set = null)
     {
-        if ($set) {
+        if ($set !== null) {
             $this->label = $set;
         }
         return $this->label;
