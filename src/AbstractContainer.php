@@ -102,7 +102,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     {
         $out = array();
         foreach ($this as $offset => $item) {
-            $out[$offset] = $item->$method($value?$value[$offset]:null);
+            $out[$offset] = $item->$method($value?@$value[$offset]:null);
         }
         return $out;
     }

@@ -17,7 +17,7 @@ include '../vendor/autoload.php';
 
 // create a new form
 $form = new Formward\Form('Demo form');
-$form->method('get');
+// $form->method('get');
 
 // add a simple input field and mark it as required
 $form['checkbox1'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
