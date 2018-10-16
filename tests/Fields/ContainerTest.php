@@ -87,6 +87,8 @@ class ContainerTest extends TestCase
         $this->assertSelectorCount(2, 'div.Container', $container);
         $container['sub']['in'] = new Input('Sub-container input');
         $this->assertSelectorCount(3, 'input.class-Input', $container);
+        //test that inputs are wrapped
+        $this->assertSelectorCount(3, 'div.FieldWrapper', $container);
         //test naming is tied properly to value retrieval
         $_POST = array(
             'con_in' => 'con_in value',
@@ -94,6 +96,22 @@ class ContainerTest extends TestCase
         );
         $this->assertContainsSelector('#con_in[value="con_in value"]', $container);
         $this->assertContainsSelector('#con_sub_in[value="con_sub_in value"]', $container);
+    }
+
+    public function testNoWrapMarkup()
+    {
+        $_POST = array();
+        $container = new Container('Container', 'con');
+        $container->wrapContainerItems(false);
+        $container['in'] = new Input('Input');
+        $container['in2'] = new Input('Input 2');
+        $container['sub'] = new Container('Sub-container');
+        $container['sub']['in'] = new Input('Sub-container input');
+        //test that inputs are not wrapped, but sub.in is
+        $this->assertSelectorCount(1, 'div.FieldWrapper', $container);
+        //turn off wrapping on sub and it should now be zero
+        $container['sub']->wrapContainerItems(false);
+        $this->assertSelectorCount(0, 'div.FieldWrapper', $container);
     }
 
     public function testMethodPropagation()

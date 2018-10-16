@@ -10,6 +10,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
 
     public $tag = 'div';
     public $selfClosing = false;
+    public $wrapContainerItems = true;
 
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
@@ -115,11 +116,23 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     }
 
     /**
+     * Set whether or not to wrap container items -- if set to false just bare
+     * field inputs are used.
+     */
+    public function wrapContainerItems(bool $set = null) : bool
+    {
+        if ($set !== null) {
+            $this->wrapContainerItems = $set;
+        }
+        return $this->wrapContainerItems;
+    }
+
+    /**
      * Convert an item into a string for this container's markup output
      */
     protected function containerItemHtml($item)
     {
-        if ($item->containerMayWrap()) {
+        if ($this->wrapContainerItems && $item->containerMayWrap()) {
             $out = array();
             $validation='';
             if ($item->validated() === true) {
