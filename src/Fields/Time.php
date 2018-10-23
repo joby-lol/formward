@@ -18,6 +18,9 @@ class Time extends AbstractTransformedInput
 
     protected function transformValue($value)
     {
+        if ($value instanceof DateTime) {
+            return $value;
+        }
         $value = DateTime::createFromFormat(static::FMT, $value);
         if ($value) {
             $value->setDate(0, 0, 0);
