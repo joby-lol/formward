@@ -161,12 +161,18 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     protected function htmlContent() : ?string
     {
         $out = '<label>'.$this->label().'</label>';
+        if ($this->wrapContainerItems) {
+            $out .= $this->htmlTips();
+        }
         $out .= PHP_EOL.implode(PHP_EOL, array_map(
             function ($item) {
                 return $this->containerItemHtml($item);
             },
             $this->get()
         )).PHP_EOL;
+        if (!$this->wrapContainerItems) {
+            $out .= $this->htmlTips();
+        }
         return $out;
     }
 

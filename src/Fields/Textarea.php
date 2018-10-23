@@ -24,6 +24,14 @@ class Textarea extends AbstractField
 
     protected function htmlContent() : ?string
     {
-        return htmlentities($this->value());
+        if (method_exists($this, 'htmlValue')) {
+            $value = $this->htmlValue();
+        } else {
+            $value = $this->value();
+        }
+        if (!$value) {
+            $value = '';
+        }
+        return htmlentities($value);
     }
 }

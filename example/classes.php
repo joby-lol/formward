@@ -19,15 +19,22 @@ include '../vendor/autoload.php';
 $form = new Formward\Form('Demo form');
 // $form->method('get');
 
-// add a simple input field and mark it as required
+//date/time
+$form['date'] = new Formward\Fields\Date('\\Formward\\Fields\\Date');
+$form['time'] = new Formward\Fields\Time('\\Formward\\Fields\\Time');
+$form['datetime'] = new Formward\Fields\DateAndTime('\\Formward\\Fields\\DateAndTime');
+
+//checkboxes
 $form['checkbox1'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
 $form['checkbox1']->default(false);
 $form['checkbox2'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
 $form['checkbox2']->default(true);
 $form['checkbox2']->addTip('This one is on by default, but should still know when it\'s unchecked');
 
+//url
 $form['url'] = new Formward\Fields\Url('Formward\\Fields\\Url');
 
+//select
 $form['select'] = new Formward\Fields\Select('Formward\\Fields\\Select');
 $form['select']->options([
     'foo' => 'Foo option',

@@ -19,7 +19,11 @@ class Input extends AbstractField
     protected function htmlAttributes()
     {
         $attr = parent::htmlAttributes();
-        if ($value = $this->value()) {
+        if (method_exists($this, 'htmlValue')) {
+            if ($value = $this->htmlValue()) {
+                $attr['value'] = $value;
+            }
+        } elseif ($value = $this->value()) {
             $attr['value'] = $value;
         }
         if ($this->required()) {
