@@ -18,4 +18,11 @@ class Submit extends SystemButton
         $out['type'] = 'submit';
         return $out;
     }
+
+    protected function htmlAttributes()
+    {
+        $attr = parent::htmlAttributes();
+        unset($attr['name']);
+        return $attr;
+    }
 }
