@@ -29,6 +29,9 @@ $form['second'] = new Formward\Fields\Container('Second container');
 $form['second']['first'] = new Formward\Fields\Input('First input');
 $form['second']['second'] = new Formward\Fields\Input('Second input');
 
+$form['display'] = new Formward\Fields\DisplayOnly('Display field');
+$form['display']->content('The class <code>Formward\\Fields\\DisplayOnly</code> lets you place your own arbitrary HTML content mid-form');
+
 // calling required() on $form['second'] will propagate down into child fields
 $form['second']->required(true);
 
