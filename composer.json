@@ -30,8 +30,12 @@
             "phpunit"
         ]
     },
+    "suggest": {
+        "symfony/yaml": "Required to use YAML field"
+    },
     "require-dev": {
         "phpunit/phpunit": "^7.3",
-        "stevegrunwell/phpunit-markup-assertions": "^1.2"
+        "stevegrunwell/phpunit-markup-assertions": "^1.2",
+        "symfony/yaml": "^3.4"
     }
 }

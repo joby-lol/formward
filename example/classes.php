@@ -41,6 +41,16 @@ $form['select']->options([
     'bar' => 'Bar option'
 ]);
 
+//yaml
+$form['yaml'] = new Formward\Fields\YAML('Formward\\Fields\\YAML');
+//default() and value() work with arrays, not strings
+$form['yaml']->default(['foo'=>'bar']);
+
+//yaml
+$form['json'] = new Formward\Fields\JSON('Formward\\Fields\\JSON');
+//default() and value() work with arrays, not strings
+$form['json']->default(['foo'=>'bar']);
+
 // output the form to the page
 echo $form;
 
@@ -63,6 +73,12 @@ if ($result === true) {
 echo "<h2>Form::value()</h2>";
 echo "<pre>";
 print_r($form->value());
+echo "</pre>";
+
+// display POST value
+echo "<h2>_POST</h2>";
+echo "<pre>";
+print_r($_POST);
 echo "</pre>";
 
 ?>

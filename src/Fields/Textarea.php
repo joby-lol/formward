@@ -5,10 +5,20 @@ namespace Formward\Fields;
 use Formward\AbstractField;
 use Formward\FieldInterface;
 
-class Textarea extends AbstractField
+class Textarea extends AbstractTransformedInput
 {
     public $tag = 'textarea';
     public $selfClosing = false;
+
+    protected function transformValue($value)
+    {
+        return $value;
+    }
+
+    protected function unTransformValue($value)
+    {
+        return $value;
+    }
 
     protected function htmlAttributes()
     {

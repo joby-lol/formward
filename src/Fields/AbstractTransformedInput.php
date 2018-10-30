@@ -35,6 +35,10 @@ abstract class AbstractTransformedInput extends Input
         if ($set) {
             parent::$method($this->unTransformValue($set));
         }
-        return $this->transformValue(parent::$method());
+        try {
+            return $this->transformValue(parent::$method());
+        } catch (\Exception $e) {
+            return parent::$method();
+        }
     }
 }
