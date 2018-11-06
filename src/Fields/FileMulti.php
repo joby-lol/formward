@@ -67,6 +67,12 @@ class FileMulti extends Input
                         @$this->fileArray[$i][$key] = $value;
                     }
                 }
+                $this->fileArray = array_filter(
+                    $this->fileArray,
+                    function ($e) {
+                        return $e['error'] != 4;
+                    }
+                );
                 foreach ($this->fileArray as $i => $file) {
                     $this->fileArray[$i]['file'] = $file['tmp_name'];
                     unset($this->fileArray[$i]['tmp_name']);
