@@ -23,6 +23,8 @@ $form = new Formward\Form('Demo file upload form');
 $form['file'] = new Formward\Fields\File('File field');
 // $form['demo']->required(true);
 
+$form['multi'] = new Formward\Fields\FileMulti('FileMulti field');
+
 // output the form to the page
 echo $form;
 

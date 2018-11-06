@@ -41,57 +41,6 @@ class File extends Input
     }
 
     /**
-     * Moves the uploaded file to a particular directory, with its own unique
-     * filename. Filename is based on uniqid, and the value is updated if
-     * necessary.
-     */
-    public function moveFileTo($targetDir, $copy=false)
-    {
-        //make sure target exists and is writeable
-        $targetDir = realpath($targetDir);
-        //make sure current file exists (we need its uniqid)
-        if (!($value = $this->value())) {
-            return false;
-        }
-        //set up unique target file in directory
-        $i = 0;
-        do {
-            $target = $targetDir.'/'.$value['uniqid'].($i?"_$i":'');
-            $i++;
-        } while (file_exists($target));
-        //move file
-        return $this->moveFile($target, null, $copy);
-    }
-
-    /**
-     * Moves the uploaded file to another filename, updates value as needed
-     */
-    public function moveFile($target, $force=false, $copy=false)
-    {
-        //never overwrite without $force
-        if (!is_file($target) || ($force && is_writeable($target))) {
-            //make sure current file is specified
-            if ($current = @$this->value()['file']) {
-                //make sure current file exists
-                if (!is_file($current)) {
-                    return false;
-                }
-                //move/copy file
-                if (is_uploaded_file($current)) {
-                    //uploaded files ignore $copy                    return move_uploaded_file($current, $target) && $this->fileArray['file'] = realpath($target);
-                } else {
-                    if ($copy) {
-                        return copy($current, $target) && $this->fileArray['file'] = realpath($target);
-                    } else {
-                        return rename($current, $target) && $this->fileArray['file'] = realpath($target);
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * Override parent-setting to set enctype of root form
      */
     public function &parent(FieldInterface &$set=null) : ?FieldInterface
@@ -113,8 +62,7 @@ class File extends Input
                     'name' => $_FILES[$this->name()]['name'],
                     'type' => $_FILES[$this->name()]['type'],
                     'file' => $_FILES[$this->name()]['tmp_name'],
-                    'size' => $_FILES[$this->name()]['size'],
-                    'uniqid' => uniqid()
+                    'size' => $_FILES[$this->name()]['size']
                 ];
             } else {
                 $this->fileArray = null;
