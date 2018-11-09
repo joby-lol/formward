@@ -21,8 +21,10 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
 
     public function set(?string $name, $value)
     {
-        $value->parent($this);
-        $value->name($name);
+        if ($value) {
+            $value->parent($this);
+            $value->name($name);
+        }
         //this is from FlatArrayTrait
         return $this->flattenSearch($name, $value);
     }
