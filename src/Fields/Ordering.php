@@ -6,7 +6,7 @@ use Formward\FieldInterface;
 
 class Ordering extends TextArea
 {
-    protected $allowDelete = false;
+    protected $allowDeletion = false;
     protected $allowAddition = false;
     protected $opts = [];
 
@@ -31,13 +31,13 @@ class Ordering extends TextArea
              }
          );
         /*
-        Validator for checking that either allowDelete is true or nothing is missing
+        Validator for checking that either allowDeletion is true or nothing is missing
          */
         $this->addValidatorFunction(
             'deletion',
             function (&$field) {
                 $value = $field->value();
-                if (!$value || $field->allowDelete()) {
+                if (!$value || $field->allowDeletion()) {
                     return true;
                 }
                 if ($field->deleted()) {
@@ -56,9 +56,9 @@ class Ordering extends TextArea
             } else {
                 $this->removeClass('deletion-allowed');
             }
-            $this->allowDelete = $set;
+            $this->allowDeletion = $set;
         }
-        return $this->allowDelete;
+        return $this->allowDeletion;
     }
 
     public function deleted()
