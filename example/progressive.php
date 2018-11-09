@@ -37,7 +37,7 @@ $form['ordering2']->opts([
     'c' => 'Option C',
     'd' => 'Option D'
 ]);
-$form['ordering2']->allowDelete(true);
+$form['ordering2']->allowDeletion(true);
 $form['ordering2']->allowAddition(true);
 $form['ordering2']->required(true);
 $form['ordering2']->addTip('This one has the optional flags set to allow both deleting and adding custom values');

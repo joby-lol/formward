@@ -19,7 +19,7 @@ class Ordering extends TextArea
          */
         $this->addValidatorFunction(
              'addition',
-             function (&$field) use ($s) {
+             function (&$field) {
                  $value = $field->value();
                  if (!$value || $field->allowAddition()) {
                      return true;
@@ -35,7 +35,7 @@ class Ordering extends TextArea
          */
         $this->addValidatorFunction(
             'deletion',
-            function (&$field) use ($s) {
+            function (&$field) {
                 $value = $field->value();
                 if (!$value || $field->allowDelete()) {
                     return true;
@@ -48,7 +48,7 @@ class Ordering extends TextArea
         );
     }
 
-    public function allowDelete(bool $set=null) : bool
+    public function allowDeletion(bool $set=null) : bool
     {
         if ($set !== null) {
             if ($set) {
