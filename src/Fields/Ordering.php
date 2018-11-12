@@ -3,6 +3,7 @@
 namespace Formward\Fields;
 
 use Formward\FieldInterface;
+use Formward\AbstractField;
 
 class Ordering extends TextArea
 {
@@ -110,17 +111,15 @@ class Ordering extends TextArea
 
     public function htmlValue()
     {
-        $value = $this->value();
-        $value = $value + array_map(
-            function ($e) {
-                return 'DELETE:'.$e;
-            },
-            $this->deleted()
-        );
+        if ($value = AbstractField::value()) {
+            $value = $this->transformValue($value, false);
+        } else {
+            return null;
+        }
         return implode(PHP_EOL, $value);
     }
 
-    public function transformValue($value)
+    public function transformValue($value, $filter=true)
     {
         if (is_array($value)) {
             return $value;
@@ -128,9 +127,11 @@ class Ordering extends TextArea
         $value = preg_split('/[\r\n]+/', trim($value));
         $value = array_unique($value);
         $value = array_map("trim", $value);
-        $value = array_filter($value, function ($e) {
-            return $e && strpos($e, 'DELETE:') !== 0;
-        });
+        if ($filter) {
+            $value = array_filter($value, function ($e) {
+                return $e && strpos($e, 'DELETE:') !== 0;
+            });
+        }
         return $value;
     }
 

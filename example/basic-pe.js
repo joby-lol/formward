@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
         for (var i = 0; i < items.length; i++)
           if (!items[i].classList.contains('deleted'))
             value.push(items[i].getAttribute('data-value'));
+          else
+            value.push('DELETE:' + items[i].getAttribute('data-value'));
         input.value = value.join('\n');
       }
       //sync up from the state of the actual input into the control's UL
@@ -100,11 +102,16 @@ document.addEventListener('DOMContentLoaded', function(e) {
         controlList.innerHTML = '';
         values = inputValues();
         values.map(function(k) {
+          var deleted = '';
+          if (k.substring(0, 7) == 'DELETE:') {
+            k = k.substring(7);
+            deleted = ' deleted';
+          }
           var v = '[' + k + ']';
           if (opts[k]) {
             v = opts[k];
           }
-          controlList.innerHTML += '<li class="form-ordering-item" draggable="true" data-value="' + k + '" ondragend="sortablelist_dragEnd()" ondragover="sortablelist_dragOver(event)" ondragstart="sortablelist_dragStart(event)">' + v + '<a class="delete-button">delete</a></li>';
+          controlList.innerHTML += '<li class="form-ordering-item' + deleted + '" draggable="true" data-value="' + k + '" ondragend="sortablelist_dragEnd()" ondragover="sortablelist_dragOver(event)" ondragstart="sortablelist_dragStart(event)">' + v + '<a class="delete-button">delete</a></li>';
         });
         controlList.addEventListener('dragend', syncDown);
         //set up event listeners on delete buttons
