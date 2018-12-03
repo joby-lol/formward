@@ -5,7 +5,7 @@ namespace Formward\Fields;
 use Formward\FieldInterface;
 use Formward\AbstractField;
 
-class Ordering extends TextArea
+class Ordering extends Textarea
 {
     protected $allowDeletion = false;
     protected $allowAddition = false;
