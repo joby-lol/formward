@@ -11,6 +11,7 @@ class Select extends AbstractField
 
     public $tag = 'select';
     public $selfClosing = false;
+    public $nullText = '-- none --';
 
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
@@ -51,14 +52,20 @@ class Select extends AbstractField
     {
         $opts = [];
         if (!$this->required()) {
-            $opts[] = '<option value="">-- none --</option>';
+            $opts[] = '<option value="">'.$this->nullText.'</option>';
         }
         if ($this->options()) {
             foreach ($this->options() as $key => $value) {
                 $opt = '<option';
                 $opt .=  ' value="'.htmlspecialchars($key).'"';
                 if ($key == $this->value()) {
-                    $opt .= ' selected';
+                    $selected = true;
+                    if ($this->value() === true || $this->value() === false || $this->value() === 0 || $this->value() === null) {
+                        $selected = ($key === $this->value());
+                    }
+                    if ($selected) {
+                        $opt .= ' selected';
+                    }
                 }
                 $opt .= '>'.htmlspecialchars($value).'</option>';
                 $opts[] = $opt;
