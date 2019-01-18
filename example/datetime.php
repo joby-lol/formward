@@ -23,12 +23,15 @@ $form = new Formward\Form('Demo form');
 //parseable by strtotime, or by a timestamp
 $form['date'] = new Formward\Fields\Date('\\Formward\\Fields\\Date');
 $form['date']->default('2018-12-25');
+$form['date']->required(true);
 //Time fields are the same, but return a string in the format H:i
 $form['time'] = new Formward\Fields\Time('\\Formward\\Fields\\Time');
 $form['time']->default(time());
+$form['time']->required(true);
 //DateAndTime fields return a timestamp, and can be set with a string or timestamp
 $form['datetime'] = new Formward\Fields\DateAndTime('\\Formward\\Fields\\DateAndTime');
 $form['datetime']->default(time());
+$form['datetime']->required(true);
 
 // output the form to the page
 echo $form;
