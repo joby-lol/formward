@@ -33,7 +33,7 @@ class DateAndTime extends Container
         return $this->timestamp();
     }
 
-    public function string()
+    public function stringValue()
     {
         $date = $this['date']->value();
         $time = $this['time']->value();
@@ -45,7 +45,7 @@ class DateAndTime extends Container
 
     public function timestamp()
     {
-        if ($str = $this->string()) {
+        if ($str = $this->stringValue()) {
             return strtotime($string);
         }
         return null;
