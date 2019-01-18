@@ -19,32 +19,16 @@ include '../vendor/autoload.php';
 $form = new Formward\Form('Demo form');
 // $form->method('get');
 
-//checkboxes
-$form['checkbox1'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
-$form['checkbox1']->default(false);
-$form['checkbox2'] = new Formward\Fields\Checkbox('Formward\\Fields\\Checkbox');
-$form['checkbox2']->default(true);
-$form['checkbox2']->addTip('This one is on by default, but should still know when it\'s unchecked');
-
-//url
-$form['url'] = new Formward\Fields\Url('Formward\\Fields\\Url');
-
-//select
-$form['select'] = new Formward\Fields\Select('Formward\\Fields\\Select');
-$form['select']->options([
-    'foo' => 'Foo option',
-    'bar' => 'Bar option'
-]);
-
-//yaml
-$form['yaml'] = new Formward\Fields\YAML('Formward\\Fields\\YAML');
-//default() and value() work with arrays, not strings
-$form['yaml']->default(['foo'=>'bar']);
-
-//yaml
-$form['json'] = new Formward\Fields\JSON('Formward\\Fields\\JSON');
-//default() and value() work with arrays, not strings
-$form['json']->default(['foo'=>'bar']);
+//Date fields return a string in the format Y-m-d, and can be set with a string
+//parseable by strtotime, or by a timestamp
+$form['date'] = new Formward\Fields\Date('\\Formward\\Fields\\Date');
+$form['date']->default('2018-12-25');
+//Time fields are the same, but return a string in the format H:i
+$form['time'] = new Formward\Fields\Time('\\Formward\\Fields\\Time');
+$form['time']->default(time());
+//DateAndTime fields return a timestamp, and can be set with a string or timestamp
+$form['datetime'] = new Formward\Fields\DateAndTime('\\Formward\\Fields\\DateAndTime');
+$form['datetime']->default(time());
 
 // output the form to the page
 echo $form;

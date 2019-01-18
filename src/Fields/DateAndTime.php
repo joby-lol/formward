@@ -28,16 +28,31 @@ class DateAndTime extends Container
 
     protected function transformMethod($method, $set)
     {
-        if ($set instanceof DateTime) {
-            $this['date']->$method($set);
-            $this['time']->$method($set);
-        }
-        $date = $this['date']->$method();
-        $time = $this['time']->$method();
+        $date = $this['date']->$method($set);
+        $time = $this['time']->$method($set);
+        return $this->timestamp();
+    }
+
+    public function string()
+    {
+        $date = $this['date']->value();
+        $time = $this['time']->value();
         if ($date && $time) {
-            $date->setTime($time->format('G'), $time->format('i'));
-            return $date;
+            return $date.' '.$time;
         }
         return null;
+    }
+
+    public function timestamp()
+    {
+        if ($str = $this->string()) {
+            return strtotime($string);
+        }
+        return null;
+    }
+
+    public function value_date($fmt)
+    {
+        return date($fmt, $this->timestamp());
     }
 }
