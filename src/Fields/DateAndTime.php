@@ -13,7 +13,7 @@ class DateAndTime extends Container
         $this->wrapContainerItems(false);
         $this['date'] = new Date('Date');
         $this['time'] = new Time('Time');
-        $this->addTip('Time zone: '.date_default_timezone_get());
+        $this->addTip('Time zone: '.date_default_timezone_get(), 'timezone');
     }
 
     public function value($set=null)

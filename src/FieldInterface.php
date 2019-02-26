@@ -12,6 +12,9 @@ interface FieldInterface extends TagInterface
     public function value($value = null);
     public function default($default = null);
 
+    public function addTip($tip, $name=null);
+    public function removeTip($name);
+
     public function required($required = null);
     public function disabled($disabled = null);
     public function validate() : bool;

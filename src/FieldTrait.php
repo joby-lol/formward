@@ -23,6 +23,11 @@ trait FieldTrait
         return $name;
     }
 
+    public function removeTip($name)
+    {
+        unset($this->tips[$name]);
+    }
+
     public function htmlTips() : string
     {
         if ($this->tips) {

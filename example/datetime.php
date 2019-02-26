@@ -32,6 +32,9 @@ $form['time']->required(true);
 $form['datetime'] = new Formward\Fields\DateAndTime('\\Formward\\Fields\\DateAndTime');
 $form['datetime']->default(time());
 $form['datetime']->required(true);
+//DateAndTimeRange fields return a pair of timestamps
+$form['datetimerange'] = new Formward\Fields\DateAndTimeRange('\\Formward\\Fields\\DateAndTimeRange');
+$form['datetimerange']->required(true);
 
 // output the form to the page
 echo $form;
