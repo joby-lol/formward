@@ -20,11 +20,6 @@
             "Digraph\\Forms\\Tests\\": "tests/"
         }
     },
-    "config": {
-        "platform": {
-            "php": "5.3.3"
-        }
-    },
     "scripts": {
       "test": [
         "phpunit"
