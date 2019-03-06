@@ -1,0 +1,146 @@
+.Autocomplete-InputWrapper .Autocomplete-Clear {
+  color: #fff;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1.5em;
+  line-height: 2em;
+  background: #ccc;
+  font-family: FontAwesome;
+  text-align: center;
+  cursor:pointer;
+}
+.Autocomplete-InputWrapper .Autocomplete-Clear:hover {
+  background:#f44336;
+}
+.Autocomplete-InputWrapper .Autocomplete-Clear:hover:after {
+  content:'\f00d';
+}
+.Autocomplete-InputWrapper .Autocomplete-Clear:after {
+  display:inline;
+  content:'\f0e7';
+}
+.FieldTag.Autocomplete {
+  display:block;
+}
+
+.Autocomplete-InputWrapper {
+  position: relative;
+  padding-right: 1.5em;
+}
+
+.disabled .Autocomplete-InputWrapper {
+  background: transparent;
+  padding-right: 0;
+}
+.disabled .Autocomplete-InputWrapper input {
+  border-color:transparent;
+}
+.disabled .Autocomplete-InputWrapper .Autocomplete-Clear {
+  display:none;
+}
+
+.Autocomplete-Results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100% !important;
+  background: #fff;
+  outline: 2px solid #ccc;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+  max-height: 10em;
+  min-height: 2em;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: default;
+  z-index: 900;
+  line-height: 1.5em;
+}
+
+.Autocomplete-Results .result, .Autocomplete-Results .error {
+  padding: 0.25em;
+  line-height: 1.5em;
+}
+
+.Autocomplete-Results .error {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.Autocomplete-Results .result {
+  cursor: pointer;
+  position: relative;
+}
+
+.Autocomplete-Results .result[aria-selected="true"] {
+  background-color: #039be5;
+  color: #fff;
+}
+
+.Autocomplete-Results .result[aria-selected="true"]:after {
+  display: block;
+  content: '\f00c';
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0.25em;
+  right: 0.5em;
+}
+
+.Autocomplete-Results .error:after {
+  display: block;
+  content: '\f06a';
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0.25em;
+  right: 0.5em;
+}
+
+.Autocomplete-Results .result:hover {
+  background-color: #b3e5fc;
+  color: #000;
+}
+
+.AjaxField-wrapper.loading .Autocomplete-Results {
+  overflow: hidden;
+}
+
+.AjaxField-wrapper.loading .Autocomplete-Results:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.AjaxField-wrapper.loading .Autocomplete-Results:after {
+  font-family: FontAwesome;
+  content: '\f013';
+  display: inline-block;
+  line-height: 1em;
+  font-size: 2em;
+  padding: 0 0.25em;
+  visibility: visible;
+  color: #388e3c;
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 4000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 4000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 4000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  -o-transition: rotate(3600deg);
+}

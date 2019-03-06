@@ -1,0 +1,390 @@
+/**
+ * Digraph CMS: Forms
+ * https://github.com/digraphcms/digraph-forms
+
+ * Copyright (c) 2017 Joby Elliott <joby@byjoby.com>
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ */
+.Form {
+  padding: 0.5em;
+  /* validation errors */ }
+  .Form * {
+    line-height: 1.35em; }
+  .Form form {
+    margin: 0;
+    padding: 0; }
+  .Form .hidden {
+    display: none;
+    visibility: hidden; }
+  .Form > h1 {
+    font-size: 1.5em;
+    margin: 0 0 0.5em; }
+  .Form .validation-error {
+    color: #fff;
+    background-color: #f44336;
+    padding: 0.25em;
+    margin-bottom: 0.25em; }
+    .Form .validation-error a {
+      color: #fff !important;
+      font-weight: bold; }
+    .Form .validation-error .validation-error-target:after {
+      content: ":"; }
+
+.FieldSet,
+.ComboField {
+  padding: 0.25em;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5em; }
+  .FieldSet > h2,
+  .ComboField > h2 {
+    font-size: 1.25em;
+    margin: 0 0.25em 0.25em; }
+  .FieldSet .FieldSet-tips,
+  .ComboField .FieldSet-tips {
+    font-size: 0.65em;
+    font-style: italic;
+    color: #666;
+    margin: 0 0.125em;
+    margin-bottom: 0.325em; }
+  .FieldSet .FieldTag.FieldTag-state-invalid,
+  .FieldSet input.FieldTag-state-invalid,
+  .FieldSet textarea.FieldTag-state-invalid,
+  .ComboField .FieldTag.FieldTag-state-invalid,
+  .ComboField input.FieldTag-state-invalid,
+  .ComboField textarea.FieldTag-state-invalid {
+    border-color: #f44336; }
+
+.ComboField,
+.Field {
+  margin-bottom: 0.25em;
+  padding: 0.25em;
+  background: #efefef;
+  position: relative;
+  border: 1px dotted #ccc;
+  /* invalid state */
+  /* required fields */
+  /* disabled fields */ }
+  .ComboField:after,
+  .Field:after {
+    display: block;
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0.125em;
+    right: 0.2em;
+    font-size: 1.25em; }
+  .ComboField:last-child,
+  .Field:last-child {
+    margin-bottom: 0; }
+  .ComboField > .Field,
+  .Field > .Field {
+    padding: 0;
+    background: transparent; }
+  .ComboField label,
+  .Field label {
+    display: block; }
+  .ComboField .Field-tips,
+  .Field .Field-tips {
+    font-size: 0.65em;
+    font-style: italic;
+    color: #666;
+    margin: 0 0.125em; }
+  .ComboField.Field-state-invalid:after,
+  .Field.Field-state-invalid:after {
+    color: #f44336; }
+  .ComboField.Field-state-invalid > label,
+  .Field.Field-state-invalid > label {
+    color: #f44336; }
+  .ComboField.Field-state-invalid input,
+  .ComboField.Field-state-invalid select,
+  .ComboField.Field-state-invalid textarea,
+  .Field.Field-state-invalid input,
+  .Field.Field-state-invalid select,
+  .Field.Field-state-invalid textarea {
+    border-color: #f44336; }
+  .ComboField.required:after,
+  .Field.required:after {
+    content: '\f069' !important;
+    color: #b3e5fc; }
+  .ComboField.disabled:after,
+  .Field.disabled:after {
+    content: '\f057' !important;
+    color: #ccc; }
+
+.ComboField > .Field {
+  display: inline-block;
+  min-width: 40%;
+  vertical-align: top; }
+  .ComboField > .Field:after {
+    display: none; }
+
+.ComboField.target, .ComboField:target,
+.Field.target,
+.Field:target {
+  background-color: #b3e5fc;
+  outline: 0.125em solid #b3e5fc; }
+
+/* input type specific */
+.Form input {
+  margin: 0; }
+
+.Form .Field-class-Radio,
+.Form .Field-class-Checkbox {
+  border: 0; }
+
+.Form input[type="checkbox"],
+.Form input[type="radio"] {
+  display: inline-block;
+  vertical-align: middle; }
+  .Form input[type="checkbox"] + label,
+  .Form input[type="radio"] + label {
+    display: block;
+    vertical-align: middle;
+    font-weight: normal;
+    margin-right: 1em; }
+
+.Form input[type="file"] {
+  border: 0;
+  background: #b3e5fc;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease; }
+  .Form input[type="file"]:hover {
+    background: #c8e6c9; }
+  .Form input[type="file"].drag, .Form input[type="file"].filled {
+    background: #c8e6c9;
+    outline: 1px solid #388e3c; }
+
+/* text input types */
+.Form textarea {
+  height: 15em; }
+
+.Form input,
+.Form select,
+.Form textarea {
+  box-sizing: border-box;
+  border: 2pt solid #fff;
+  border-bottom: 0;
+  border-top: 0;
+  width: 100%;
+  font-size: 1em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  display: block; }
+  .Form input[disabled],
+  .Form input .disabled,
+  .Form select[disabled],
+  .Form select .disabled,
+  .Form textarea[disabled],
+  .Form textarea .disabled {
+    border-color: transparent;
+    background: transparent; }
+
+/* buttons */
+.Form input[type="submit"] {
+  background: #8bc34a;
+  border: 2pt solid #64dd17;
+  color: #000;
+  cursor: pointer;
+  font-size: 1.25em;
+  padding: 0.5em;
+  max-width: none; }
+  .Form input[type="submit"]:hover {
+    background: #64dd17; }
+  .Form input[type="submit"]:active {
+    background: #76ff03; }
+  .Form input[type="submit"].disabled, .Form input[type="submit"]:disabled,
+  .Form input[type="submit"] [disabled='1'] {
+    background: #9e9e9e;
+    border-color: #9e9e9e; }
+
+/* disabled inputs */
+.FieldTag.disabled,
+.disabled .FieldTag,
+.disabled input,
+input.disabled {
+  background: #eee;
+  color: #999;
+  border-color: transparent; }
+
+/* really fancy checkboxes and radio buttons */
+.Form input[type="checkbox"],
+.Form input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  z-index: -1; }
+  .Form input[type="checkbox"] + label,
+  .Form input[type="radio"] + label {
+    color: #333;
+    cursor: pointer;
+    line-height: 1.3em;
+    transition: all 0.25s ease;
+    margin-left: 1.575em;
+    text-indent: -1.575em; }
+    .Form input[type="checkbox"] + label:before,
+    .Form input[type="radio"] + label:before {
+      color: #ccc;
+      content: '\f096';
+      font-family: FontAwesome;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 1.5em;
+      width: 0.8em;
+      margin-right: 0.25em;
+      transition: all 0.25s ease;
+      text-indent: 0; }
+    .Form input[type="checkbox"] + label:hover,
+    .Form input[type="radio"] + label:hover {
+      color: #333; }
+      .Form input[type="checkbox"] + label:hover:before,
+      .Form input[type="radio"] + label:hover:before {
+        content: '\f096';
+        color: #999; }
+  .Form input[type="checkbox"]:checked + label,
+  .Form input[type="radio"]:checked + label {
+    color: #000; }
+    .Form input[type="checkbox"]:checked + label:before,
+    .Form input[type="radio"]:checked + label:before {
+      content: '\f046';
+      color: #388e3c; }
+
+.Form input[type="radio"] + label:before {
+  vertical-align: -10%;
+  font-size: 1.3em;
+  content: '\f10c'; }
+
+.Form input[type="radio"] + label:hover:before {
+  color: #999;
+  content: '\f192'; }
+
+.Form input[type="radio"]:checked + label:before {
+  color: #388e3c;
+  content: '\f111'; }
+
+/* max length counters */
+.Form .Field-tips-maxlength .maxlength-counter {
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 1em;
+  float: right;
+  transition: color 0.5s ease;
+  color: #1b5e20; }
+  .Form .Field-tips-maxlength .maxlength-counter.pct-75 {
+    color: #e65100; }
+  .Form .Field-tips-maxlength .maxlength-counter.pct-90 {
+    color: #bf360c; }
+  .Form .Field-tips-maxlength .maxlength-counter.pct-100 {
+    color: #b71c1c; }
+
+/* Submitted form styling */
+.Form form {
+  position: relative; }
+  .Form form:after {
+    color: #64dd17;
+    font-family: FontAwesome;
+    content: '\f013';
+    display: none; }
+  .Form form.submitted {
+    overflow: hidden; }
+    .Form form.submitted:before {
+      content: '';
+      background: #eee;
+      outline: 0.25em solid #c8e6c9;
+      opacity: 0.9;
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: block;
+      -webkit-animation-name: pulseOutline;
+      -webkit-animation-duration: 900ms;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: ease;
+      -moz-animation-name: pulseOutline;
+      -moz-animation-duration: 900ms;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: ease;
+      -ms-animation-name: pulseOutline;
+      -ms-animation-duration: 900ms;
+      -ms-animation-iteration-count: infinite;
+      -ms-animation-timing-function: ease; }
+    .Form form.submitted:after {
+      color: #388e3c;
+      font-family: FontAwesome;
+      content: '\f013';
+      position: absolute;
+      display: block;
+      bottom: 0.5em;
+      left: 0;
+      right: 0;
+      text-align: center;
+      margin: 0 auto;
+      font-size: 5em;
+      z-index: 10000;
+      -webkit-animation-name: spin;
+      -webkit-animation-duration: 900ms;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-name: spin;
+      -moz-animation-duration: 4000ms;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: linear;
+      -ms-animation-name: spin;
+      -ms-animation-duration: 4000ms;
+      -ms-animation-iteration-count: infinite;
+      -ms-animation-timing-function: linear;
+      -o-transition: rotate(3600deg); }
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg); }
+  to {
+    -moz-transform: rotate(360deg); } }
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@-moz-keyframes pulseOutline {
+  0% {
+    outline-width: 0.125em; }
+  50% {
+    outline-width: 0.5em; }
+  100% {
+    outline-width: 0.125em; } }
+
+@-webkit-keyframes pulseOutline {
+  0% {
+    outline-width: 0.125em; }
+  50% {
+    outline-width: 0.5em; }
+  100% {
+    outline-width: 0.125em; } }
+
+@keyframes pulseOutline {
+  0% {
+    outline-width: 0.125em; }
+  50% {
+    outline-width: 0.5em; }
+  100% {
+    outline-width: 0.125em; } }

@@ -1,0 +1,532 @@
+/**
+ * Digraph CMS: Forms
+ * https://github.com/digraphcms/digraph-forms
+
+ * Copyright (c) 2017 Joby Elliott <joby@byjoby.com>
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ */
+$invalid-color-dark: #f44336;
+$invalid-color-light: #ffcdd2;
+$valid-color-dark: #388e3c;
+$valid-color-light: #c8e6c9;
+$info-color-dark: #039be5;
+$info-color-light: #b3e5fc;
+
+.Form {
+  padding: 0.5em;
+
+  * {
+    line-height: 1.35em;
+  }
+
+  form {
+    margin: 0;
+    padding: 0;
+  }
+
+  .hidden {
+    display: none;
+    visibility: hidden;
+  }
+
+  > h1 {
+    font-size: 1.5em;
+    margin: 0 0 0.5em;
+  }
+  /* validation errors */
+  .validation-error {
+    color: #fff;
+    background-color: $invalid-color-dark;
+    padding: 0.25em;
+    margin-bottom: 0.25em;
+
+    a {
+      color: #fff !important;
+      font-weight: bold;
+    }
+
+    .validation-error-target:after {
+      content: ":";
+    }
+  }
+}
+
+.FieldSet,
+.ComboField {
+  padding: 0.25em;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5em;
+
+  > h2 {
+    font-size: 1.25em;
+    margin: 0 0.25em 0.25em;
+  }
+
+  .FieldSet-tips {
+    font-size: 0.65em;
+    font-style: italic;
+    color: #666;
+    margin:0 0.125em;
+    margin-bottom:0.325em;
+  }
+
+  .FieldTag,
+  input,
+  textarea {
+    &.FieldTag-state-invalid {
+      border-color: $invalid-color-dark;
+    }
+  }
+}
+
+.ComboField,
+.Field {
+  margin-bottom: 0.25em;
+  padding: 0.25em;
+  background: #efefef;
+  position: relative;
+  border: 1px dotted #ccc;
+
+  &:after {
+    display: block;
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0.125em;
+    right: 0.2em;
+    font-size: 1.25em;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > .Field {
+    padding: 0;
+    background: transparent;
+  }
+
+  label {
+    display: block;
+  }
+
+  .Field-tips {
+    font-size: 0.65em;
+    font-style: italic;
+    color: #666;
+    margin:0 0.125em;
+  }
+  /* invalid state */
+  &.Field-state-invalid {
+    &:after {
+      color: $invalid-color-dark;
+    }
+
+    > label {
+      color: $invalid-color-dark;
+    }
+
+    input,
+    select,
+    textarea {
+      border-color: $invalid-color-dark;
+    }
+  }
+  /* required fields */
+  &.required {
+    &:after {
+      content: '\f069' !important;
+      color: $info-color-light;
+    }
+  }
+  /* disabled fields */
+  &.disabled {
+    &:after {
+      content: '\f057' !important;
+      color:#ccc;
+    }
+  }
+}
+
+.ComboField {
+  & > .Field {
+    display: inline-block;
+    min-width:40%;
+    vertical-align: top;
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.ComboField,
+.Field {
+  &.target,
+  &:target {
+    background-color: $info-color-light;
+    outline: 0.125em solid $info-color-light;
+  }
+}
+/* input type specific */
+
+.Form {
+  input {
+    margin: 0;
+  }
+
+  .Field-class-Radio,
+  .Field-class-Checkbox {
+    border:0;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+
+    + label {
+      display: block;
+      vertical-align: middle;
+      font-weight: normal;
+      margin-right: 1em;
+    }
+  }
+
+  input[type="file"] {
+    border: 0;
+    background: $info-color-light;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: $valid-color-light;
+    }
+
+    &.drag,
+    &.filled {
+      background: $valid-color-light;
+      outline: 1px solid $valid-color-dark;
+    }
+  }
+}
+/* text input types */
+
+.Form {
+  input {}
+
+  textarea {
+    height: 15em;
+  }
+
+  input,
+  select,
+  textarea {
+    box-sizing: border-box;
+    border: 2pt solid #fff;
+    border-bottom:0;
+    border-top:0;
+    width: 100%;
+    font-size: 1em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    display:block;
+    &[disabled],
+    .disabled {
+      border-color:transparent;
+      background:transparent;
+    }
+  }
+}
+
+/* buttons */
+.Form {
+  input {
+    &[type="submit"] {
+      background: #8bc34a;
+      border: 2pt solid #64dd17;
+      color: #000;
+      cursor: pointer;
+      font-size: 1.25em;
+      padding: 0.5em;
+      max-width: none;
+
+      &:hover {
+        background: #64dd17;
+      }
+
+      &:active {
+        background: #76ff03;
+      }
+
+      &.disabled,
+      &:disabled,
+      [disabled='1'] {
+        background: #9e9e9e;
+        border-color: #9e9e9e;
+      }
+    }
+  }
+}
+
+/* disabled inputs */
+.FieldTag.disabled,
+.disabled .FieldTag,
+.disabled input,
+input.disabled {
+  background: #eee;
+  color: #999;
+  border-color:transparent;
+}
+
+/* really fancy checkboxes and radio buttons */
+.Form {
+  // shared properties, labels and basic placement
+  input[type="checkbox"],
+  input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+
+    + label {
+      color: #333;
+      cursor: pointer;
+      line-height: 1.3em;
+      transition: all 0.25s ease;
+      margin-left: 1.575em;
+      text-indent: -1.575em;
+
+      &:before {
+        color: #ccc;
+        content: '\f096'; //open square
+        font-family: FontAwesome;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.5em;
+        width: 0.8em;
+        margin-right: 0.25em;
+        transition: all 0.25s ease;
+        text-indent:0;
+      }
+
+      &:hover {
+        color: #333;
+
+        &:before {
+          content: '\f096'; //open square
+          color: #999;
+        }
+      }
+    }
+
+    &:checked {
+      + label {
+        color: #000;
+
+        &:before {
+          content: '\f046'; //checked square
+          color: $valid-color-dark;
+        }
+      }
+    }
+  }
+  //radio-specific icons
+  input[type="radio"] {
+    + label {
+      &:before {
+        vertical-align: -10%;
+        font-size: 1.3em;
+        content: '\f10c'; //open circle
+      }
+
+      &:hover {
+        &:before {
+          color: #999;
+          content: '\f192'; //dot circle
+        }
+      }
+    }
+
+    &:checked {
+      + label {
+        &:before {
+          color: $valid-color-dark;
+          content: '\f111'; //filled circle
+        }
+      }
+    }
+  }
+}
+
+/* max length counters */
+.Form {
+  .Field-tips-maxlength {
+    .maxlength-counter {
+      font-weight: bold;
+      display: inline-block;
+      margin-left: 1em;
+      float:right;
+      transition: color 0.5s ease;
+      color: #1b5e20;
+
+      &.pct-75 {
+        color: #e65100;
+      }
+
+      &.pct-90 {
+        color: #bf360c;
+      }
+
+      &.pct-100 {
+        color: #b71c1c;
+      }
+    }
+  }
+}
+
+/* Submitted form styling */
+.Form form {
+  position: relative;
+
+  &:after {
+    color: #64dd17;
+    font-family: FontAwesome;
+    content: '\f013';
+    display: none;
+  }
+
+  &.submitted {
+    overflow: hidden;
+
+    &:before {
+      content: '';
+      background: #eee;
+      outline: 0.25em solid $valid-color-light;
+      opacity: 0.9;
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: block;
+      -webkit-animation-name: pulseOutline;
+      -webkit-animation-duration: 900ms;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: ease;
+      -moz-animation-name: pulseOutline;
+      -moz-animation-duration: 900ms;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: ease;
+      -ms-animation-name: pulseOutline;
+      -ms-animation-duration: 900ms;
+      -ms-animation-iteration-count: infinite;
+      -ms-animation-timing-function: ease;
+    }
+
+    &:after {
+      color: $valid-color-dark;
+      font-family: FontAwesome;
+      content: '\f013';
+      position: absolute;
+      display: block;
+      bottom: 0.5em;
+      left: 0;
+      right: 0;
+      text-align: center;
+      margin: 0 auto;
+      font-size: 5em;
+      z-index: 10000;
+      -webkit-animation-name: spin;
+      -webkit-animation-duration: 900ms;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-name: spin;
+      -moz-animation-duration: 4000ms;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: linear;
+      -ms-animation-name: spin;
+      -ms-animation-duration: 4000ms;
+      -ms-animation-iteration-count: infinite;
+      -ms-animation-timing-function: linear;
+      -o-transition: rotate(3600deg);
+    }
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes pulseOutline {
+  0% {
+    outline-width: 0.125em;
+  }
+
+  50% {
+    outline-width: 0.5em;
+  }
+
+  100% {
+    outline-width: 0.125em;
+  }
+}
+@-webkit-keyframes pulseOutline {
+  0% {
+    outline-width: 0.125em;
+  }
+
+  50% {
+    outline-width: 0.5em;
+  }
+
+  100% {
+    outline-width: 0.125em;
+  }
+}
+@keyframes pulseOutline {
+  0% {
+    outline-width: 0.125em;
+  }
+
+  50% {
+    outline-width: 0.5em;
+  }
+
+  100% {
+    outline-width: 0.125em;
+  }
+}

@@ -1,41 +1,36 @@
 {
     "name": "byjoby/formward",
-    "description": "Forms with sane defaults and simple interfaces to skip the boilerplate code and just put a form on the page",
+    "description": "PHP tools for constructing, validating, and processing forms. Includes additional tools to construct forms from Digraph DataObjects",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "authors": [{
         "name": "Joby Elliott",
         "email": "joby@byjoby.com"
     }],
     "require": {
-        "php": ">=7.1",
-        "byjoby/sesh": "^0.1.0",
-        "byjoby/html-object-strings": "dev-master",
-        "byjoby/flatrr": "^1"
+        "php": ">=5.3.3"
     },
     "autoload": {
         "psr-4": {
-            "Formward\\": "src/"
+            "Digraph\\Forms\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Formward\\": "tests/"
+            "Digraph\\Forms\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "5.3.3"
         }
     },
     "scripts": {
-        "test": [
-            "phpunit"
-        ]
-    },
-    "suggest": {
-        "symfony/yaml": "Required to use YAML field"
+      "test": [
+        "phpunit"
+      ]
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.3",
-        "stevegrunwell/phpunit-markup-assertions": "^1.2",
-        "symfony/yaml": "^3.4"
+        "phpunit/phpunit": "^4.8"
     }
 }
