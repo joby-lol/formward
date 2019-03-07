@@ -72,6 +72,20 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     }
 
     /**
+     * Add data-validation attribute so that validation states propagate upwards
+     */
+    protected function htmlAttributes()
+    {
+        $attr = parent::htmlAttributes();
+        if ($this->validated() === true) {
+            $attr['data-validation'] = 'valid';
+        } elseif ($this->validated() === false) {
+            $attr['data-validation'] = 'invalid';
+        }
+        return $attr;
+    }
+
+    /**
      * Containers can still use Validator objects or validation functions,
      * but be warned that most of the ones for fields won't work right on
      * a container.
@@ -80,21 +94,19 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
      */
     public function validate() : bool
     {
+        $valid = true;
         //first call parent::validate() to execute any attached Validator objects of functions
         if (parent::validate() === false) {
-            $this->validated(false);
-        } else {
-            //unless any errors come up we'll start by assuming everything is valid
-            $this->validated(true);
+            $valid = false;
         }
         //then do our children's validation
         foreach ($this as $item) {
             if (!$item->validate()) {
-                $this->validated(false);
+                $valid = false;
             }
         }
         //return validated status
-        return $this->validated();
+        return $this->validated($valid);
     }
 
     /**
