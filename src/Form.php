@@ -25,6 +25,7 @@ class Form extends AbstractContainer implements FormInterface
         }
         parent::__construct($label, $name, $parent);
         $this->addClass('Form');
+        $this->removeClass('Container');
         $this->systemFields['submit'] = new SystemFields\Submit('Submit form', 'submit', $this);
         $this->setupToken();
     }

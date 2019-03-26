@@ -24,6 +24,11 @@ abstract class AbstractField extends GenericTag implements FieldInterface, TagIn
         $class = explode('\\', get_called_class());
         $class = array_pop($class);
         $this->addClass('class-'.$class);
+        $this->construct();
+    }
+
+    protected function construct()
+    {
     }
 
     protected function htmlAttributes()

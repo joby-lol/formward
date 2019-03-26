@@ -20,7 +20,7 @@ class Required extends AbstractValidator
 
     public function validateField()
     {
-        if (!$this->field->value()) {
+        if ($this->field->value() === null || $this->field->value() === '') {
             $this->message = 'The field "'.$this->field->label().'" is required';
             return false;
         }

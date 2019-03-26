@@ -1,0 +1,5 @@
+div.ajax-field-results.loading {
+  background:#f00;
+  height:50px;
+  overflow:hidden;
+}
