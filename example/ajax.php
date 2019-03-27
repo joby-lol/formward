@@ -27,12 +27,13 @@ $form = new Formward\Form('Demo Ajax form');
 // add a simple input field and mark it as required
 $form['demo'] = new Formward\AjaxFields\AjaxAutocomplete('Demo field');
 // $form['demo']->ajaxSource('ajax.json');
-$form['demo']->ajaxSource('http://localhost/formward/example/ajaxsource.php?q=$q');
+$form['demo']->ajaxSource('http://localhost/_formward/example/ajaxsource.php?q=$q');
 $form['demo']->required(true);
+$form['demo']->default('abc');
 
 // add a simple input field
 $form['demo2'] = new Formward\AjaxFields\AjaxAutocomplete('Demo field');
-$form['demo2']->ajaxSource('http://localhost/formward/example/ajaxsource.php?q=$q');
+$form['demo2']->ajaxSource('http://localhost/_formward/example/ajaxsource.php?q=$q');
 
 // output the form to the page
 echo $form;

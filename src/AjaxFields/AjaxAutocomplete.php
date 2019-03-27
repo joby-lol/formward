@@ -89,6 +89,15 @@ class AjaxAutocomplete extends Container
         return $this['value']->value($value);
     }
 
+    /*
+    default() passes through to value
+     */
+    public function default($value = null)
+    {
+        $this['query']->default($value);
+        return $this['value']->default($value);
+    }
+
     public function ajaxValidateValue()
     {
         $value = $this['value']->value();
