@@ -5,7 +5,7 @@ passably nice outputs.
 .Container {
   border: 1px solid #ccc;
   padding: 0 0.5rem;
-  padding-bottom:0.5rem;
+  padding-bottom: 0.5rem;
   margin: 1rem 0;
   position: relative;
   background: #eee;
@@ -14,6 +14,12 @@ passably nice outputs.
 .Form {
   border-color: #eee;
   background: #fff;
+}
+
+.Form .hidden,
+.Form .FieldWrapper-hidden,
+.From .Container-hidden {
+  display: none !important;
 }
 
 .Form .validation-messages {
@@ -48,14 +54,15 @@ passably nice outputs.
   margin: 0.5rem 0;
 }
 
-.inline-children > .FieldWrapper,
-.inline-children > .Container {
-  display:inline-block;
-  vertical-align:top;
-  margin-top:0;
-  margin-bottom:0;
+.inline-children>.FieldWrapper,
+.inline-children>.Container {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
+.Container[data-validation="invalid"],
 .FieldWrapper[data-validation="invalid"] {
   background: #fee;
 }
@@ -68,11 +75,11 @@ passably nice outputs.
 .Form label {
   font-weight: bold;
   display: block;
-  margin-bottom:0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .Form .tips {
-  margin-top:0.25rem;
+  margin-top: 0.25rem;
 }
 
 .Container>label {
@@ -149,78 +156,78 @@ passably nice outputs.
 progressively-enhanced ordering field
  */
 .FieldWrapper-formward-ordering-field.js-active textarea {
-  display:none;
+  display: none;
 }
 
 .FieldWrapper-formward-ordering-field ul {
   margin: 0;
   padding: 0;
-  list-style-type:none;
+  list-style-type: none;
 }
 
 .FieldWrapper-formward-ordering-field li {
   margin: 0.25em 0;
   padding: 0.25em;
-  background:#eee;
-  transition:background-color 0.25s linear;
+  background: #eee;
+  transition: background-color 0.25s linear;
   cursor: grab;
-  position:relative;
+  position: relative;
 }
 
 .FieldWrapper-formward-ordering-field li.deleted {
-  background-color:#fee;
-  color:#c00;
+  background-color: #fee;
+  color: #c00;
   text-decoration: line-through;
 }
 
 .FieldWrapper-formward-ordering-field li.dragging {
-  background-color:#def;
+  background-color: #def;
   cursor: grabbing;
 }
 
 .FieldWrapper-formward-ordering-field .delete-button {
-  display:none;
-  cursor:pointer;
-  position:absolute;
-  top:0.25em;
-  right:0.25em;
-  bottom:0.25em;
-  color:#c00;
-  overflow:hidden;
-  text-indent:100%;
-  white-space:nowrap;
-  width:1.5em;
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+  bottom: 0.25em;
+  color: #c00;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 1.5em;
 }
 
 .FieldWrapper-formward-ordering-field .delete-button:hover {
-  background:#c00;
-  color:#fff;
+  background: #c00;
+  color: #fff;
 }
 
 .FieldWrapper-formward-ordering-field .delete-button:after {
-  content:"\00D7";
-  text-indent:0;
-  text-align:center;
-  display:block;
-  position:absolute;
-  top:0;
-  left:0;
-  bottom:0;
-  width:1.5em;
+  content: "\00D7";
+  text-indent: 0;
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1.5em;
 }
 
 .FieldWrapper-formward-ordering-field.FieldWrapper-deletion-allowed .delete-button {
-  display:block;
+  display: block;
 }
 
 .FieldWrapper-formward-ordering-field.FieldWrapper-deletion-allowed li {
-  padding-right:2em;
+  padding-right: 2em;
 }
 
 .FieldWrapper-formward-ordering-field .add-item {
-  display:none;
+  display: none;
 }
 
 .FieldWrapper-formward-ordering-field.FieldWrapper-addition-allowed .add-item {
-  display:block;
+  display: block;
 }
