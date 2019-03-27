@@ -1,5 +1,69 @@
+.FormwardAjaxAutocomplete.js-active .FieldWrapper-ajax-field-value {
+  display: none;
+}
+
+.FieldWrapper-ajax-field-query {
+  margin-bottom: 0;
+}
+
+.FieldWrapper-ajax-field-query input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.FieldWrapper-ajax-field-results {
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.FieldWrapper-ajax-field-results label {
+  display: none;
+}
+
+div.ajax-field-results {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.25);
+  height: auto;
+  transition: all 0.5s linear;
+  line-height: 1.5em;
+}
+
 div.ajax-field-results.loading {
-  background:#f00;
-  height:50px;
-  overflow:hidden;
+  background: #fda;
+  height: 2em;
+}
+
+div.ajax-field-results .ajax-item {
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0.25em;
+}
+
+div.ajax-field-results .ajax-item:hover {
+  background: #afd;
+}
+
+div.ajax-field-results .ajax-item.selected {
+  background: #adf;
+}
+
+.FormwardAjaxAutocomplete.blurred .ajax-item {
+  height: 0;
+  padding: 0;
+}
+
+.FormwardAjaxAutocomplete.blurred .ajax-item.selected {
+  height: auto;
+  padding: 0.25em;
+}
+
+.FormwardAjaxAutocomplete.focused .ajax-field-results {
+  background: #fafafa;
+  z-index: 100;
+}
+
+.FormwardAjaxAutocomplete.blurred .ajax-field-results {
+  position: relative;
 }

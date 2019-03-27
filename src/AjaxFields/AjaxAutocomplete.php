@@ -11,6 +11,7 @@ use Formward\Fields\Select;
 class AjaxAutocomplete extends Container
 {
     protected $ajaxSource;
+    protected $ajaxQueryHandler;
 
     public function construct()
     {
@@ -25,12 +26,12 @@ class AjaxAutocomplete extends Container
         // $this->wrapContainerItems(false);
         $this['query'] = new Input('');
         $this['query']->addClass('ajax-field-query');
-        $this['results'] = new DisplayOnly('');
-        $this['results']->addClass('ajax-field-results');
+        $this['query']->attr('autocomplete', 'off');
         $this['value'] = new Select('Results');
         $this['value']->nullText = '-- select --';
         $this['value']->addClass('ajax-field-value');
-        $this['value']->addClass('hidden');
+        $this['results'] = new DisplayOnly('');
+        $this['results']->addClass('ajax-field-results');
         $this->addClass('FormwardAjaxAutocomplete');
         $this->ajaxPrevalidation();
         /*
@@ -49,12 +50,8 @@ class AjaxAutocomplete extends Container
                 }
                 //required
                 if ($field->required()) {
-                    if ($field['query']->value()) {
-                        if ($field->value() === null) {
-                            return 'Please select an item';
-                        }
-                    } else {
-                        return 'Please enter a search';
+                    if ($field->value() === null) {
+                        return 'Please select an item';
                     }
                 }
                 return true;
@@ -89,7 +86,7 @@ class AjaxAutocomplete extends Container
      */
     public function value($value = null)
     {
-        return $this['value']->value($null);
+        return $this['value']->value($value);
     }
 
     public function ajaxValidateValue()
@@ -105,8 +102,16 @@ class AjaxAutocomplete extends Container
         return true;
     }
 
+    /*
+    Loads results from a callable query handler that can be passed in via
+    ajaxQueryHandler() -- query handlers must accept a single argument, for the
+    string being queried.
+     */
     public function ajaxGetResults($query)
     {
+        if ($this->ajaxQueryHandler()) {
+            return call_user_func_array($callback, [$query]);
+        }
         if ($result = $this->ajaxUrl($query)) {
             if ($result = file_get_contents($result)) {
                 if ($result = json_decode($result, true)) {
@@ -133,7 +138,7 @@ class AjaxAutocomplete extends Container
             $this['value']->options(array_map(
                 function ($e) {
                     if (is_array($e)) {
-                        return $e['name'];
+                        return $e['text'];
                     }
                     return $e;
                 },
@@ -157,8 +162,15 @@ class AjaxAutocomplete extends Container
         if ($ajaxSource !== null) {
             $this->ajaxSource = $ajaxSource;
             $this->attr('data-ajaxsource', base64_encode($ajaxSource));
-            $this->ajaxPrevalidation();
         }
         return $this->ajaxSource;
+    }
+
+    public function ajaxQueryHandler($ajaxQueryHandler = null)
+    {
+        if ($ajaxQueryHandler !== null) {
+            $this->ajaxQueryHandler = $ajaxQueryHandler;
+        }
+        return $this->ajaxQueryHandler;
     }
 }
