@@ -158,7 +158,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
             foreach ($item->wrapperContentOrder() as $c) {
                 switch ($c) {
                     case '{field}': $out[] = "$item"; break;
-                    case '{label}': $out[] = '<label for="'.$item->name().'">'.$item->label().'</label>'; break;
+                    case '{label}': $out[] = $item->label()?'<label for="'.$item->name().'">'.$item->label().'</label>':''; break;
                     case '{tips}': $out[] = $item->htmlTips(); break;
                     default: $out[] = $c; break;
                 }
@@ -174,7 +174,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
      */
     protected function htmlContent() : ?string
     {
-        $out = '<label>'.$this->label().'</label>';
+        $out = $this->label()?'<label>'.$this->label().'</label>':'';
         if ($this->wrapContainerItems) {
             $out .= $this->htmlTips();
         }
