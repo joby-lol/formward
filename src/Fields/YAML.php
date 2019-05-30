@@ -15,6 +15,7 @@ class YAML extends Textarea
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
         parent::__construct($label, $name, $parent);
+        $this->addTip('Content must be valid formatted '.static::FMT_NAME.' data');
         $this->addValidatorFunction(
             'parseable',
             function (&$field) {

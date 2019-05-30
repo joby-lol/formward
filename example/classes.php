@@ -7,13 +7,15 @@ include '../vendor/autoload.php';
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-        <link rel="stylesheet" href="basic-styles.css">
-    </head>
-    <body>
-<?php
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="basic-styles.css">
+</head>
+
+<body>
+    <?php
 
 // create a new form
 $form = new Formward\Form('Demo form');
@@ -46,6 +48,11 @@ $form['json'] = new Formward\Fields\JSON('Formward\\Fields\\JSON');
 //default() and value() work with arrays, not strings
 $form['json']->default(['foo'=>'bar']);
 
+//yaml
+$form['ini'] = new Formward\Fields\INI('Formward\\Fields\\INI');
+//default() and value() work with arrays, not strings
+// $form['ini']->default(['foo'=>'bar']);
+
 // output the form to the page
 echo $form;
 
@@ -77,5 +84,6 @@ print_r($_POST);
 echo "</pre>";
 
 ?>
-    </body>
+</body>
+
 </html>
