@@ -28,8 +28,8 @@ class DateAndTime extends Container
 
     protected function transformMethod($method, $set)
     {
-        $date = $this['date']->$method($set);
-        $time = $this['time']->$method($set);
+        $date = $this['date']->$method(date($this['date']::FMT, $set));
+        $time = $this['time']->$method(date($this['time']::FMT, $set));
         return $this->timestamp();
     }
 
