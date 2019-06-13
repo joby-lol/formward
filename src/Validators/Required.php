@@ -27,15 +27,14 @@ class Required extends AbstractValidator
 
     protected function validate_helper($field)
     {
+        if (!$field->isFilled()) {
+            return false;
+        }
         if ($field instanceof ContainerInterface) {
             foreach ($field as $child) {
                 if ($child->required() && !$this->validate_helper($child)) {
                     return false;
                 }
-            }
-        } else {
-            if (!$field->isFilled()) {
-                return false;
             }
         }
         return true;
