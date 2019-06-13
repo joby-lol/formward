@@ -41,6 +41,11 @@ class FileMulti extends Input
         );
     }
 
+    public function isFilled()
+    {
+        return !!$this->value();
+    }
+
     /**
      * Override parent-setting to set enctype of root form
      */
@@ -67,7 +72,7 @@ class FileMulti extends Input
     {
         return tempnam(
             $this->tempDir(),
-            'FileMulti'
+            'File'
         );
     }
 

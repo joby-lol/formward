@@ -66,7 +66,7 @@ class File extends Input
     {
         return tempnam(
             $this->tempDir(),
-            'FileMulti'
+            'File'
         );
     }
 

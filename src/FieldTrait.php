@@ -14,6 +14,11 @@ trait FieldTrait
     protected $method = 'post';
     protected $name;
 
+    public function isFilled()
+    {
+        return !($this->value() === null || $this->value() === '');
+    }
+
     public function addTip($tip, $name=null)
     {
         if (!$name) {
