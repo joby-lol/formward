@@ -29,7 +29,7 @@ class Required extends AbstractValidator
     {
         if ($field instanceof ContainerInterface) {
             foreach ($field as $child) {
-                if (!$this->validate_helper($child)) {
+                if ($child->required() && !$this->validate_helper($child)) {
                     return false;
                 }
             }
