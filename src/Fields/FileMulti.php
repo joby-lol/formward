@@ -7,7 +7,7 @@ use Formward\FieldInterface;
 class FileMulti extends Input
 {
     protected $fileArray = false;
-    protected $storageLocation = null;
+    protected $tempDir = null;
 
     public function __construct(string $label, string $name=null, FieldInterface $parent=null)
     {
@@ -52,6 +52,25 @@ class FileMulti extends Input
         return parent::parent($set);
     }
 
+    public function tempDir($set = null)
+    {
+        if ($set !== null) {
+            $this->tempDir = $set;
+        }
+        if ($this->tempDir) {
+            return $this->tempDir;
+        }
+        return \sys_get_temp_dir();
+    }
+
+    protected function tempFile()
+    {
+        return tempnam(
+            $this->tempDir(),
+            'FileMulti'
+        );
+    }
+
     /**
      * Override submittedValue because these values live in $_FILES
      * Also assemble the structure of $_FILES into an array where the first
@@ -74,7 +93,9 @@ class FileMulti extends Input
                     }
                 );
                 foreach ($this->fileArray as $i => $file) {
-                    $this->fileArray[$i]['file'] = $file['tmp_name'];
+                    $tempFile = $this->tempFile();
+                    move_uploaded_file($file['tmp_name'], $tempFile);
+                    $this->fileArray[$i]['file'] = $tempFile;
                     unset($this->fileArray[$i]['tmp_name']);
                 }
             }
