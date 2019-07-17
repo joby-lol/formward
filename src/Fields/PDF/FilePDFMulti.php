@@ -41,16 +41,16 @@ class FilePDFMulti extends FileMulti
     {
         //validate individual page counts
         if ($this->maxPagesPer) {
-            foreach($this->value() as $f) {
+            foreach ($this->value() as $f) {
                 if ($this->pdfPageCount($f['file']) > $this->maxPagesPer) {
-                    return $f['name'].' must be no more than '.$this->maxPagesPer.' page'.($this->maxPagesPer==1?'':'s. If your PDF page count is being read incorrectly, please re-save your PDF using different settings.');
+                    return $f['name'].' must be no more than '.$this->maxPagesPer.' page'.(($this->maxPagesPer==1)?'':'s').' (file has '.$this->pdfPageCount($f['file']).'). If your PDF page count is being read incorrectly, please re-save your PDF using different settings.';
                 }
             }
         }
         //validate total page count
         if ($this->maxPages && $this->totalPages()) {
             if ($this->totalPages() > $this->maxPages) {
-                return 'All files must be no more than '.$this->maxPages.' total page'.($this->maxPages==1?'':'s. If your PDF page count is being read incorrectly, please re-save your PDF using different settings.');
+                return 'All files combined must be no more than '.$this->maxPages.' total page'.(($this->maxPages==1)?'':'s').' (uploads total '.$this->totalPages().'). If your PDF page count is being read incorrectly, please re-save your PDF using different settings.';
             }
         }
         //true if no errors were found
@@ -63,7 +63,7 @@ class FilePDFMulti extends FileMulti
             return null;
         }
         $count = 0;
-        foreach($this->value() as $f) {
+        foreach ($this->value() as $f) {
             $count += $this->pdfPageCount($f['file']);
         }
         return $count;

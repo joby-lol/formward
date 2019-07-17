@@ -40,7 +40,7 @@ class FilePDF extends File
     {
         if ($this->pages()) {
             if ($this->pages() > $this->maxPages()) {
-                return 'PDF must be no more than '.$this->maxPages.' page'.($this->maxPages==1?'':'s. If your PDF page count is being read incorrectly, please re-save your PDF using different settings.');
+                return 'PDF must be no more than '.$this->maxPages.' page'.(($this->maxPages==1)?'':'s').' (file has '.$this->pages().'). If your PDF page count is being read incorrectly, please re-save your PDF using different settings.';
             }
         }
         return true;

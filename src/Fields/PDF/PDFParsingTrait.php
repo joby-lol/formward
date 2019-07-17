@@ -12,12 +12,12 @@ trait PDFParsingTrait
     public function pdfPageCount($file)
     {
         if (!$this->pdfPageCount[$file]) {
-            $this->pdfPageCount[$file] =  $this->scanFileForPageCount($file, 1024, 2048);
+            $this->pdfPageCount[$file] =  $this->scanFileForPageCount($file, 2048);
         }
         return $this->pdfPageCount[$file];
     }
 
-    protected function scanFileForPageCount($file, $offset, $size)
+    protected function scanFileForPageCount($file, $size, $offset = 0)
     {
         //open file
         $handle = fopen($file, "rb");
@@ -37,6 +37,11 @@ trait PDFParsingTrait
             }
         }
         fclose($handle);
+        //set offset if it is currently zero
+        if (!$offset && !$found) {
+            $found = $this->scanFileForPageCount($file,$size,$size/2);
+        }
+        //return value
         return $found;
     }
 
@@ -57,16 +62,14 @@ trait PDFParsingTrait
      */
     protected function parseStringForPageCount($string)
     {
-        if (preg_match("/\/N\s+([0-9]+)/", $string, $found)) {
+        $pos = strpos($string, '/Type /Pages ');
+        if ($pos !== false) {
+            $pos2 = strpos($string, '>>', $pos);
+            $string = substr($string, $pos, $pos2 - $pos);
+            $pos = strpos($string, '/Count ');
+            return (int) substr($string, $pos+7);
+        } elseif (preg_match("/\/N\s+([0-9]+)/", $string, $found)) {
             return $found[1];
-        } else {
-            $pos = strpos($string, '/Type /Pages ');
-            if ($pos !== false) {
-                $pos2 = strpos($string, '>>', $pos);
-                $string = substr($string, $pos, $pos2 - $pos);
-                $pos = strpos($string, '/Count ');
-                return (int) substr($string, $pos+7);
-            }
         }
         return false;
     }
