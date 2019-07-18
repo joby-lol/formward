@@ -8,6 +8,8 @@ use Formward\Fields\FileMulti;
 trait PDFParsingTrait
 {
     protected $pdfPageCount = [];
+    protected $goodFound = false;
+    protected $badFound = false;
 
     public function pdfPageCount($file)
     {
@@ -19,6 +21,10 @@ trait PDFParsingTrait
 
     protected function scanFileForPageCount($file, $size, $offset = 0)
     {
+        //reset good/bad find info
+        if (!$offset) {
+            $this->goodFound = $this->badFound = false;
+        }
         //open file
         $handle = fopen($file, "rb");
         if (false === $handle) {
@@ -32,17 +38,21 @@ trait PDFParsingTrait
         $found = null;
         while (!feof($handle)) {
             $chunk = fread($handle, $size);
-            if ($found = $this->parseStringForPageCount($chunk)) {
-                break;
-            }
+            $this->parseStringForPageCount($chunk);
         }
         fclose($handle);
         //set offset if it is currently zero
         if (!$offset && !$found) {
-            $found = $this->scanFileForPageCount($file,$size,$size/2);
+            $this->scanFileForPageCount($file, $size, $size/2);
         }
         //return value
-        return $found;
+        if ($this->goodFound) {
+            return $this->goodFound;
+        } elseif ($this->badFound) {
+            return $this->badFound;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -67,10 +77,9 @@ trait PDFParsingTrait
             $pos2 = strpos($string, '>>', $pos);
             $string = substr($string, $pos, $pos2 - $pos);
             $pos = strpos($string, '/Count ');
-            return (int) substr($string, $pos+7);
-        } elseif (preg_match("/\/N\s+([0-9]+)/", $string, $found)) {
-            return $found[1];
+            $this->goodFound = (int) substr($string, $pos+7);
+        } elseif (!$this->badFound && preg_match("/\/N\s+([0-9]+)/", $string, $found)) {
+            $this->badFound = $found[1];
         }
-        return false;
     }
 }
