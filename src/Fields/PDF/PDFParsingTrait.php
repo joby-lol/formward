@@ -49,6 +49,8 @@ trait PDFParsingTrait
         if ($this->goodFound) {
             return $this->goodFound;
         } elseif ($this->badFound) {
+            //tentatively we should not trust these bad counts
+            return null;
             return $this->badFound;
         } else {
             return null;
