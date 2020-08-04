@@ -31,6 +31,7 @@ use \Digraph\Forms\Fields\HTML5\Checkbox;
 use \Digraph\Forms\Fields\HTML5\Phone;
 
 use \Digraph\Forms\Fields\FieldHidden;
+use Digraph\Forms\Fields\HTML5\Email;
 
 class DataObjectForm extends AjaxForm implements \Digraph\Forms\Interfaces\DataObjectFormInterface
 {
@@ -187,21 +188,27 @@ class DataObjectForm extends AjaxForm implements \Digraph\Forms\Interfaces\DataO
         return $return;
     }
 
-    protected function &_buildField_default($name, $mapEntry)
+    protected function _buildField_default($name, $mapEntry)
     {
         $field = new Field($mapEntry['form']['label']);
         return $field;
     }
 
-    protected function &_buildField_checkbox($name, $mapEntry)
+    protected function _buildField_checkbox($name, $mapEntry)
     {
         $field = new Checkbox($mapEntry['form']['label']);
         return $field;
     }
 
-    protected function &_buildField_phone($name, $mapEntry)
+    protected function _buildField_phone($name, $mapEntry)
     {
         $field = new Phone($mapEntry['form']['label']);
+        return $field;
+    }
+
+    protected function _buildField_email($name, $mapEntry)
+    {
+        $field = new Email($mapEntry['form']['label']);
         return $field;
     }
 
@@ -218,26 +225,26 @@ class DataObjectForm extends AjaxForm implements \Digraph\Forms\Interfaces\DataO
         return date('F j, Y, g:i a', $value);
     }
 
-    protected function &_buildField_datetime($name, $mapEntry)
+    protected function _buildField_datetime($name, $mapEntry)
     {
         $field = new AjaxDateTime($mapEntry['form']['label']);
         return $field;
     }
 
-    protected function &_buildField_number($name, $mapEntry)
+    protected function _buildField_number($name, $mapEntry)
     {
         $field = new Number($mapEntry['form']['label']);
         return $field;
     }
 
-    protected function &_buildField_dataobject($name, $mapEntry)
+    protected function _buildField_dataobject($name, $mapEntry)
     {
         $field = new DataObject($mapEntry['form']['label']);
         $field->setClass($mapEntry['form']['objectclass']);
         return $field;
     }
 
-    protected function &_buildField_textarea($name, $mapEntry)
+    protected function _buildField_textarea($name, $mapEntry)
     {
         $field = new TextArea($mapEntry['form']['label']);
         return $field;
@@ -256,14 +263,14 @@ class DataObjectForm extends AjaxForm implements \Digraph\Forms\Interfaces\DataO
         return $options;
     }
 
-    protected function &_buildField_radio($name, $mapEntry)
+    protected function _buildField_radio($name, $mapEntry)
     {
         $field = new RadioMulti($mapEntry['form']['label']);
         $field->setOptions($this->buildField_getOptions($mapEntry));
         return $field;
     }
 
-    protected function &_buildField_pickone($name, $mapEntry)
+    protected function _buildField_pickone($name, $mapEntry)
     {
         $options = $this->buildField_getOptions($mapEntry);
         if (count($options) <= 6) {
