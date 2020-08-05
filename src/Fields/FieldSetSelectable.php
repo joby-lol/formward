@@ -36,12 +36,13 @@ class FieldSetSelectable extends FieldSet
 
     public function __toString()
     {
+        //generate script
         $wrapperIDs = array();
         foreach ($this as $k => $v) {
             if ($k !== '__selector') {
                 if ($v instanceof FieldSet) {
                     $wrapperIDs[$k] = $v->getName();
-                }else {
+                } else {
                     $wrapperIDs[$k] = $v->getName() . '-wrapper';
                 }
             }
@@ -50,7 +51,11 @@ class FieldSetSelectable extends FieldSet
         $script = str_replace('{{selectorID}}', $this->selector->getName(), $script);
         $script = str_replace('/**allWrappers**/', '= ' . json_encode($wrapperIDs), $script);
         $script = "<script>$script</script>";
-        return parent::__toString() . $script;
+        //generate HTML
+        $field = parent::__toString();
+        $field = preg_replace('/<(.+?) required="true"(.*?)>/', '<$1$2>', $field);
+        //return both
+        return $field . $script;
     }
 
     public function validate()
