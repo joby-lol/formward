@@ -63,9 +63,7 @@ $(function($) {
   var maxLengthFieldUpdate = function($this) {
     var length = $this.val().length;
     var max = $this.attr('max');
-    if ($this.val().length > max) {
-      $this.val($this.val().substring(0,max));
-    }
+    $this.val($this.val().substring(0,max));
     $counter = $this.parent().find('.Field-tips-maxlength .maxlength-counter');
     $counter.text(length+'/'+max);
     var pct = length/max;

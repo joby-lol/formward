@@ -1,11 +1,14 @@
 {
   "name": "digraphcms-forms-frontend",
-  "repository":"https://github.com/digraphcms/digraph-forms",
+  "repository": "https://github.com/digraphcms/digraph-forms",
   "description": "The frontend for the Digraph CMS Forms library",
   "main": "build.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joby Elliott <joby@byjoby.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.14.1"
+  }
 }

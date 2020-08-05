@@ -38,10 +38,11 @@ $info-color-light: #b3e5fc;
     visibility: hidden;
   }
 
-  > h1 {
+  >h1 {
     font-size: 1.5em;
     margin: 0 0 0.5em;
   }
+
   /* validation errors */
   .validation-error {
     color: #fff;
@@ -66,7 +67,7 @@ $info-color-light: #b3e5fc;
   border: 1px solid #ccc;
   margin-bottom: 0.5em;
 
-  > h2 {
+  >h2 {
     font-size: 1.25em;
     margin: 0 0.25em 0.25em;
   }
@@ -75,8 +76,8 @@ $info-color-light: #b3e5fc;
     font-size: 0.65em;
     font-style: italic;
     color: #666;
-    margin:0 0.125em;
-    margin-bottom:0.325em;
+    margin: 0 0.125em;
+    margin-bottom: 0.325em;
   }
 
   .FieldTag,
@@ -109,7 +110,7 @@ $info-color-light: #b3e5fc;
     margin-bottom: 0;
   }
 
-  > .Field {
+  >.Field {
     padding: 0;
     background: transparent;
   }
@@ -122,15 +123,16 @@ $info-color-light: #b3e5fc;
     font-size: 0.65em;
     font-style: italic;
     color: #666;
-    margin:0 0.125em;
+    margin: 0 0.125em;
   }
+
   /* invalid state */
   &.Field-state-invalid {
     &:after {
       color: $invalid-color-dark;
     }
 
-    > label {
+    >label {
       color: $invalid-color-dark;
     }
 
@@ -140,6 +142,7 @@ $info-color-light: #b3e5fc;
       border-color: $invalid-color-dark;
     }
   }
+
   /* required fields */
   &.required {
     &:after {
@@ -147,19 +150,20 @@ $info-color-light: #b3e5fc;
       color: $info-color-light;
     }
   }
+
   /* disabled fields */
   &.disabled {
     &:after {
       content: '\f057' !important;
-      color:#ccc;
+      color: #ccc;
     }
   }
 }
 
 .ComboField {
-  & > .Field {
+  &>.Field {
     display: inline-block;
-    min-width:40%;
+    min-width: 40%;
     vertical-align: top;
 
     &:after {
@@ -170,12 +174,14 @@ $info-color-light: #b3e5fc;
 
 .ComboField,
 .Field {
+
   &.target,
   &:target {
     background-color: $info-color-light;
     outline: 0.125em solid $info-color-light;
   }
 }
+
 /* input type specific */
 
 .Form {
@@ -185,7 +191,7 @@ $info-color-light: #b3e5fc;
 
   .Field-class-Radio,
   .Field-class-Checkbox {
-    border:0;
+    border: 0;
   }
 
   input[type="checkbox"],
@@ -193,7 +199,7 @@ $info-color-light: #b3e5fc;
     display: inline-block;
     vertical-align: middle;
 
-    + label {
+    +label {
       display: block;
       vertical-align: middle;
       font-weight: normal;
@@ -221,6 +227,7 @@ $info-color-light: #b3e5fc;
     }
   }
 }
+
 /* text input types */
 
 .Form {
@@ -235,17 +242,18 @@ $info-color-light: #b3e5fc;
   textarea {
     box-sizing: border-box;
     border: 2pt solid #fff;
-    border-bottom:0;
-    border-top:0;
+    border-bottom: 0;
+    border-top: 0;
     width: 100%;
     font-size: 1em;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
-    display:block;
+    display: block;
+
     &[disabled],
     .disabled {
-      border-color:transparent;
-      background:transparent;
+      border-color: transparent;
+      background: transparent;
     }
   }
 }
@@ -287,11 +295,12 @@ $info-color-light: #b3e5fc;
 input.disabled {
   background: #eee;
   color: #999;
-  border-color:transparent;
+  border-color: transparent;
 }
 
 /* really fancy checkboxes and radio buttons */
 .Form {
+
   // shared properties, labels and basic placement
   input[type="checkbox"],
   input[type="radio"] {
@@ -299,7 +308,7 @@ input.disabled {
     position: absolute;
     z-index: -1;
 
-    + label {
+    +label {
       color: #333;
       cursor: pointer;
       line-height: 1.3em;
@@ -317,7 +326,7 @@ input.disabled {
         width: 0.8em;
         margin-right: 0.25em;
         transition: all 0.25s ease;
-        text-indent:0;
+        text-indent: 0;
       }
 
       &:hover {
@@ -331,7 +340,7 @@ input.disabled {
     }
 
     &:checked {
-      + label {
+      +label {
         color: #000;
 
         &:before {
@@ -341,9 +350,10 @@ input.disabled {
       }
     }
   }
+
   //radio-specific icons
   input[type="radio"] {
-    + label {
+    +label {
       &:before {
         vertical-align: -10%;
         font-size: 1.3em;
@@ -359,7 +369,7 @@ input.disabled {
     }
 
     &:checked {
-      + label {
+      +label {
         &:before {
           color: $valid-color-dark;
           content: '\f111'; //filled circle
@@ -376,7 +386,7 @@ input.disabled {
       font-weight: bold;
       display: inline-block;
       margin-left: 1em;
-      float:right;
+      float: right;
       transition: color 0.5s ease;
       color: #1b5e20;
 
@@ -405,92 +415,8 @@ input.disabled {
     content: '\f013';
     display: none;
   }
-
-  &.submitted {
-    overflow: hidden;
-
-    &:before {
-      content: '';
-      background: #eee;
-      outline: 0.25em solid $valid-color-light;
-      opacity: 0.9;
-      position: absolute;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: block;
-      -webkit-animation-name: pulseOutline;
-      -webkit-animation-duration: 900ms;
-      -webkit-animation-iteration-count: infinite;
-      -webkit-animation-timing-function: ease;
-      -moz-animation-name: pulseOutline;
-      -moz-animation-duration: 900ms;
-      -moz-animation-iteration-count: infinite;
-      -moz-animation-timing-function: ease;
-      -ms-animation-name: pulseOutline;
-      -ms-animation-duration: 900ms;
-      -ms-animation-iteration-count: infinite;
-      -ms-animation-timing-function: ease;
-    }
-
-    &:after {
-      color: $valid-color-dark;
-      font-family: FontAwesome;
-      content: '\f013';
-      position: absolute;
-      display: block;
-      bottom: 0.5em;
-      left: 0;
-      right: 0;
-      text-align: center;
-      margin: 0 auto;
-      font-size: 5em;
-      z-index: 10000;
-      -webkit-animation-name: spin;
-      -webkit-animation-duration: 900ms;
-      -webkit-animation-iteration-count: infinite;
-      -webkit-animation-timing-function: linear;
-      -moz-animation-name: spin;
-      -moz-animation-duration: 4000ms;
-      -moz-animation-iteration-count: infinite;
-      -moz-animation-timing-function: linear;
-      -ms-animation-name: spin;
-      -ms-animation-duration: 4000ms;
-      -ms-animation-iteration-count: infinite;
-      -ms-animation-timing-function: linear;
-      -o-transition: rotate(3600deg);
-    }
-  }
 }
-@-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(0deg);
-  }
 
-  to {
-    -moz-transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
 @-moz-keyframes pulseOutline {
   0% {
     outline-width: 0.125em;
@@ -504,6 +430,7 @@ input.disabled {
     outline-width: 0.125em;
   }
 }
+
 @-webkit-keyframes pulseOutline {
   0% {
     outline-width: 0.125em;
@@ -517,6 +444,7 @@ input.disabled {
     outline-width: 0.125em;
   }
 }
+
 @keyframes pulseOutline {
   0% {
     outline-width: 0.125em;
