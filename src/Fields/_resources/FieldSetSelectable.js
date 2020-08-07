@@ -9,12 +9,15 @@
         }
     }
     var selectionChange = function () {
-        var selected = allWrappers[selector.value];
         for (const k in allWrappers) {
             if (allWrappers.hasOwnProperty(k)) {
                 allWrappers[k].classList.add('hidden');
             }
         }
+        if (!allWrappers.hasOwnProperty(selector.value)) {
+            return;
+        }
+        var selected = allWrappers[selector.value];
         selected.classList.remove('hidden');
     };
     selectionChange();
