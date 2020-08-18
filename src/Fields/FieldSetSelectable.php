@@ -60,7 +60,7 @@ class FieldSetSelectable extends FieldSet
 
     public function validate()
     {
-        if ($this->_required) {
+        if ($this->_required && $this->selector) {
             $this[$this->selector->getValue()]->required();
         }
         return parent::validate();
