@@ -3,6 +3,7 @@
 namespace Formward\Fields;
 
 use Formward\FieldInterface;
+use Formward\FormInterface;
 
 class Checkbox extends Input
 {
@@ -15,12 +16,19 @@ class Checkbox extends Input
         $this->default(false);
     }
 
-    public function value($value = null)
+    public function submittedValue()
     {
-        if ($this->value === null) {
-            return parent::value() == 'on';
-        } else {
-            return $this->value = $value;
+        if (($form = $this->rootParent()) && ($form instanceof FormInterface)) {
+            // we have a root form, so we can check if it's submitted, and
+            // get a proper true/false/null result
+            if ($form->submitted()) {
+                return parent::submittedValue() == 'on';
+            }else {
+                return null;
+            }
+        }else {
+            // there is no root form, so the result will always be true/false
+            return parent::submittedValue() == 'on';
         }
     }
 
