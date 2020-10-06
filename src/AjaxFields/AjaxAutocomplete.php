@@ -68,7 +68,7 @@ class AjaxAutocomplete extends Container
     /*
     required doesn't recurse
      */
-    public function required($set = null)
+    public function required($set = null, $clientSide = true)
     {
         if ($set !== null) {
             if ($set) {
@@ -77,6 +77,7 @@ class AjaxAutocomplete extends Container
                 $this->removeClass('required');
             }
             $this->required = $set;
+            $this->clientSideRequired = $clientSide;
         }
         return $this->required;
     }

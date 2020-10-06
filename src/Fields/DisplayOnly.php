@@ -28,7 +28,7 @@ class DisplayOnly extends AbstractField
         return $this->displayContent;
     }
 
-    public function required($required = null)
+    public function required($required = null, $clientSide = true)
     {
         return false;
     }
@@ -61,7 +61,7 @@ class DisplayOnly extends AbstractField
     protected function htmlAttributes()
     {
         $attr = parent::htmlAttributes();
-        if ($this->required()) {
+        if ($this->required && $this->clientSideRequired) {
             $attr['required'] = 'true';
         }
         if ($this->disabled()) {

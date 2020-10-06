@@ -39,7 +39,7 @@ class Select extends AbstractField
     protected function htmlAttributes()
     {
         $attr = parent::htmlAttributes();
-        if ($this->required()) {
+        if ($this->required && $this->clientSideRequired) {
             $attr['required'] = 'true';
         }
         if ($this->disabled()) {

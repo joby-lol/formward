@@ -9,7 +9,7 @@ class Container extends AbstractContainer
     /**
      * get/set whether this field is required
      */
-    public function required($set = null)
+    public function required($set = null, $clientSide = true)
     {
         if ($set !== null) {
             $this->recursiveSet('required', $set);

@@ -8,6 +8,7 @@ trait FieldTrait
     protected $tips = array();
     protected $value;
     protected $required;
+    protected $clientSideRequired;
     protected $disabled = false;
     protected $default;
     protected $label;
@@ -102,7 +103,7 @@ trait FieldTrait
     /**
      * get/set whether this field is required
      */
-    public function required($set = null)
+    public function required($set = null, $clientSide = true)
     {
         if ($set !== null) {
             if ($set) {
@@ -110,8 +111,10 @@ trait FieldTrait
                 $this->addValidator('required', new Validators\Required());
             } else {
                 $this->removeClass('required');
+                $this->removeValidator('required');
             }
             $this->required = $set;
+            $this->clientSideRequired = $clientSide;
         }
         return $this->required;
     }

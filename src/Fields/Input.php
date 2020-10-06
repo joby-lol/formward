@@ -26,7 +26,7 @@ class Input extends AbstractField
         } elseif ($value = $this->value()) {
             $attr['value'] = $value;
         }
-        if ($this->required()) {
+        if ($this->required && $this->clientSideRequired) {
             $attr['required'] = 'true';
         }
         if ($this->disabled()) {
