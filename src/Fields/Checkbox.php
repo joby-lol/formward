@@ -16,6 +16,11 @@ class Checkbox extends Input
         $this->default(false);
     }
 
+    public function isFilled()
+    {
+        return $this->value();
+    }
+
     public function submittedValue()
     {
         if (($form = $this->rootParent()) && ($form instanceof FormInterface)) {
@@ -51,6 +56,7 @@ class Checkbox extends Input
     {
         $attr = parent::htmlAttributes();
         unset($attr['value']);
+        unset($attr['required']);
         if ($this->value()) {
             $attr['checked'] = true;
         }
