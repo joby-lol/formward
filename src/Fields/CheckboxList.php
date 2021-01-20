@@ -6,7 +6,7 @@ class CheckboxList extends Container
 {
     protected $options = [];
 
-    public function options(array $set = null) : ?array
+    public function options(array $set = null): ?array
     {
         if ($set) {
             $this->options = $set;
@@ -21,8 +21,7 @@ class CheckboxList extends Container
         return $this->get_conv(parent::value());
     }
 
-    public function default($set = null)
-    {
+    function default($set = null) {
         parent::default($this->set_conv($set));
         return $this->get_conv(parent::default());
     }
@@ -42,8 +41,8 @@ class CheckboxList extends Container
     {
         $out = [];
         if (is_array($set)) {
-            foreach ($set as $k => $v) {
-                $out[md5($k)] = $v;
+            foreach ($set as $v) {
+                $out[md5($v)] = $v;
             }
         }
         return $out;
