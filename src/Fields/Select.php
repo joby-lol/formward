@@ -12,8 +12,9 @@ class Select extends AbstractField
     public $tag = 'select';
     public $selfClosing = false;
     public $nullText = '-- none --';
+    public $emptyText = '-- select --';
 
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
+    public function __construct(string $label, string $name = null, FieldInterface $parent = null)
     {
         parent::__construct($label, $name, $parent);
         $this->attr('type', 'text');
@@ -28,7 +29,7 @@ class Select extends AbstractField
         return $value;
     }
 
-    public function options(array $set = null) : ?array
+    public function options(array $set = null): ?array
     {
         if ($set) {
             $this->options = $set;
@@ -48,16 +49,18 @@ class Select extends AbstractField
         return $attr;
     }
 
-    protected function htmlContent() : ?string
+    protected function htmlContent(): ?string
     {
         $opts = [];
         if (!$this->required()) {
-            $opts[] = '<option value="">'.$this->nullText.'</option>';
+            $opts[] = '<option value="">' . $this->nullText . '</option>';
+        } else {
+            $opts[] = '<option value="">' . $this->emptyText . '</option>';
         }
         if ($this->options()) {
             foreach ($this->options() as $key => $value) {
                 $opt = '<option';
-                $opt .=  ' value="'.htmlspecialchars($key).'"';
+                $opt .= ' value="' . htmlspecialchars($key) . '"';
                 if ($key == $this->value()) {
                     $selected = true;
                     if ($this->value() === true || $this->value() === false || $this->value() === 0 || $this->value() === null) {
@@ -67,7 +70,7 @@ class Select extends AbstractField
                         $opt .= ' selected';
                     }
                 }
-                $opt .= '>'.htmlspecialchars($value).'</option>';
+                $opt .= '>' . htmlspecialchars($value) . '</option>';
                 $opts[] = $opt;
             }
         } else {
