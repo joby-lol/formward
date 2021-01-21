@@ -1,5 +1,5 @@
 <?php
-/* Formward | https://gitlab.com/byjoby/formward | MIT License */
+/* Formward | https://github.com/jobyone/formward | MIT License */
 namespace Formward;
 
 use Flatrr\FlatArrayTrait;
@@ -12,7 +12,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     public $selfClosing = false;
     public $wrapContainerItems = true;
 
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
+    public function __construct(string $label, string $name = null, FieldInterface $parent = null)
     {
         parent::__construct($label, $name, $parent);
         $this->removeClass('Field');
@@ -29,8 +29,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
         return $this->flattenSearch($name, $value);
     }
 
-    public function default($default = null)
-    {
+    function default($default = null) {
         return $this->recurse('default', $default);
     }
 
@@ -92,7 +91,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
      *
      * Containers also validate their child fields recursively.
      */
-    public function validate() : bool
+    public function validate(): bool
     {
         $valid = true;
         //first call parent::validate() to execute any attached Validator objects of functions
@@ -113,16 +112,27 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
      * Recursively call a method on all child fields, and assemble the results
      * into an array.
      */
-    protected function recurse(string $method, array $value = null) : array
+    protected function recurse(string $method, array $value = null): array
     {
         $out = array();
         foreach ($this as $offset => $item) {
-            $out[$offset] = $item->$method($value?@$value[$offset]:null);
+            $out[$offset] = $item->$method($value ? @$value[$offset] : null);
         }
         return $out;
     }
 
-    protected function recursiveSet(string $method, $value) : void
+    /**
+     * get/set whether this field is required
+     */
+    public function required($set = null, $clientSide = true)
+    {
+        foreach ($this as $item) {
+            $item->required($set, $clientSide);
+        }
+        return parent::required($set);
+    }
+
+    protected function recursiveSet(string $method, $value): void
     {
         foreach ($this as $item) {
             $item->$method($value);
@@ -133,7 +143,7 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
      * Set whether or not to wrap container items -- if set to false just bare
      * field inputs are used.
      */
-    public function wrapContainerItems(bool $set = null) : bool
+    public function wrapContainerItems(bool $set = null): bool
     {
         if ($set !== null) {
             $this->wrapContainerItems = $set;
@@ -148,19 +158,23 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     {
         if ($this->wrapContainerItems && $item->containerMayWrap()) {
             $out = array();
-            $validation='';
+            $validation = '';
             if ($item->validated() === true) {
                 $validation = 'data-validation="valid" ';
             } elseif ($item->validated() === false) {
                 $validation = 'data-validation="invalid" ';
             }
-            $out[] = '<div '.$validation.'id="_wrapper_'.$item->name().'" class="FieldWrapper '.implode(' ', $item->classes('FieldWrapper-')).'">';
+            $out[] = '<div ' . $validation . 'id="_wrapper_' . $item->name() . '" class="FieldWrapper ' . implode(' ', $item->classes('FieldWrapper-')) . '">';
             foreach ($item->wrapperContentOrder() as $c) {
                 switch ($c) {
-                    case '{field}': $out[] = "$item"; break;
-                    case '{label}': $out[] = $item->label()?'<label for="'.$item->name().'">'.$item->label().'</label>':''; break;
-                    case '{tips}': $out[] = $item->htmlTips(); break;
-                    default: $out[] = $c; break;
+                    case '{field}':$out[] = "$item";
+                        break;
+                    case '{label}':$out[] = $item->label() ? '<label for="' . $item->name() . '">' . $item->label() . '</label>' : '';
+                        break;
+                    case '{tips}':$out[] = $item->htmlTips();
+                        break;
+                    default:$out[] = $c;
+                        break;
                 }
             }
             $out[] = '</div>';
@@ -172,25 +186,25 @@ abstract class AbstractContainer extends AbstractField implements ContainerInter
     /**
      * HTML tag content is a list of all the elements in this container
      */
-    protected function htmlContent() : ?string
+    protected function htmlContent(): ?string
     {
-        $out = $this->label()?'<label>'.$this->label().'</label>':'';
+        $out = $this->label() ? '<label>' . $this->label() . '</label>' : '';
         if ($this->wrapContainerItems) {
             $out .= $this->htmlTips();
         }
-        $out .= PHP_EOL.implode(PHP_EOL, array_map(
+        $out .= PHP_EOL . implode(PHP_EOL, array_map(
             function ($item) {
                 return $this->containerItemHtml($item);
             },
             $this->get()
-        )).PHP_EOL;
+        )) . PHP_EOL;
         if (!$this->wrapContainerItems) {
             $out .= $this->htmlTips();
         }
         return $out;
     }
 
-    public function containerMayWrap() : bool
+    public function containerMayWrap(): bool
     {
         return false;
     }
