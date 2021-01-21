@@ -1,5 +1,5 @@
 <?php
-/* Formward | https://gitlab.com/byjoby/formward | MIT License */
+/* Formward | https://github.com/jobyone/formward | MIT License */
 namespace Formward\Fields;
 
 use Formward\AbstractField;
@@ -10,7 +10,7 @@ class Input extends AbstractField
     public $tag = 'input';
     public $selfClosing = true;
 
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
+    public function __construct(string $label, string $name = null, FieldInterface $parent = null)
     {
         parent::__construct($label, $name, $parent);
         $this->attr('type', 'text');
@@ -20,7 +20,7 @@ class Input extends AbstractField
     {
         $attr = parent::htmlAttributes();
         if (method_exists($this, 'htmlValue')) {
-            if ($value = $this->htmlValue()) {
+            if (($value = $this->htmlValue()) !== null) {
                 $attr['value'] = $value;
             }
         } elseif ($value = $this->value()) {
