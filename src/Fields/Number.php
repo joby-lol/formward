@@ -14,7 +14,6 @@ class Number extends Input
 
     public function htmlValue()
     {
-        var_dump($this->value());
         if ($this->value() === '0' || $this->value() === 0) {
             return '0';
         } else {
