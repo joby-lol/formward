@@ -1,5 +1,5 @@
 <?php
-/* Formward | https://gitlab.com/byjoby/formward | MIT License */
+/* Formward | https://github.com/jobyone/formward | MIT License */
 namespace Formward\Fields;
 
 use Formward\AbstractField;
@@ -54,6 +54,9 @@ class YAML extends Textarea
     {
         if (is_array($value)) {
             return $value;
+        }
+        if (is_null($value)) {
+            return [];
         }
         return YamlParser::parse($value);
     }
