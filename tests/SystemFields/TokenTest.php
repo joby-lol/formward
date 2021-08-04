@@ -11,7 +11,7 @@ class TokenTest extends TestCase
 {
     use \SteveGrunwell\PHPUnit_Markup_Assertions\MarkupAssertionsTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         //fake user-agent and IP
         $_SERVER['HTTP_USER_AGENT'] = 'phpunit';

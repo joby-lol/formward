@@ -1,5 +1,6 @@
 <?php
-/* Formward | https://gitlab.com/byjoby/formward | MIT License */
+/* Formward | https://github.com/jobyone/formward | MIT License */
+
 namespace Formward;
 
 class Form extends AbstractContainer implements FormInterface
@@ -11,17 +12,17 @@ class Form extends AbstractContainer implements FormInterface
     public $invalidFn;
     public $notSubmittedFn;
 
-    protected $action = '#';
+    protected $action = null;
     protected $submitted = null;
     protected $oneTimeTokens = true;
     protected $csrf = true;
 
     public $tag = 'form';
 
-    public function __construct(string $label, string $name=null, FieldInterface $parent=null)
+    public function __construct(string $label, string $name = null, FieldInterface $parent = null)
     {
         if (!$name) {
-            $name = md5(__FILE__.'/'.$label);
+            $name = md5(__FILE__ . '/' . $label);
         }
         parent::__construct($label, $name, $parent);
         $this->addClass('Form');
@@ -38,7 +39,7 @@ class Form extends AbstractContainer implements FormInterface
     /**
      * get/set the action to use for this form
      */
-    public function action(string $set = null) : string
+    public function action(string $set = null): ?string
     {
         if ($set !== null) {
             $this->action = $set;
@@ -55,7 +56,7 @@ class Form extends AbstractContainer implements FormInterface
         }
     }
 
-    public function handle(callable $validFn = null, callable $invalidFn = null, callable $notSubmittedFn = null) : ?bool
+    public function handle(callable $validFn = null, callable $invalidFn = null, callable $notSubmittedFn = null): ?bool
     {
         $this->validFn = $validFn;
         $this->invalidFn = $invalidFn;
@@ -78,7 +79,7 @@ class Form extends AbstractContainer implements FormInterface
         return null;
     }
 
-    public function submitted() : bool
+    public function submitted(): bool
     {
         if ($this->submitted === null) {
             $this->submitted = $this->systemFields['token']->test();
@@ -89,7 +90,7 @@ class Form extends AbstractContainer implements FormInterface
         return $this->submitted;
     }
 
-    public function oneTimeTokens(bool $set = null) : bool
+    public function oneTimeTokens(bool $set = null): bool
     {
         if ($set !== null) {
             $this->oneTimeTokens = $set;
@@ -97,7 +98,7 @@ class Form extends AbstractContainer implements FormInterface
         return $this->oneTimeTokens;
     }
 
-    public function csrf(bool $set = null) : bool
+    public function csrf(bool $set = null): bool
     {
         if ($set !== null) {
             $this->csrf = $set;
@@ -106,17 +107,17 @@ class Form extends AbstractContainer implements FormInterface
         return $this->csrf;
     }
 
-    public function tokenName() : string
+    public function tokenName(): string
     {
         return $this->systemFields['token']->name();
     }
 
-    public function tokenValue() : string
+    public function tokenValue(): string
     {
         return $this->systemFields['token']->value();
     }
 
-    public function &parent(FieldInterface &$parent = null) : ?FieldInterface
+    public function &parent(FieldInterface &$parent = null): ?FieldInterface
     {
         if ($parent !== null) {
             throw new \Exception("Top-level forms can't be nested in other Containers");
@@ -144,7 +145,7 @@ class Form extends AbstractContainer implements FormInterface
     /**
      * Add system fields to html tag content
      */
-    protected function htmlContent() : ?string
+    protected function htmlContent(): ?string
     {
         //basic output
         $out = [
@@ -174,7 +175,9 @@ class Form extends AbstractContainer implements FormInterface
     {
         $attr = parent::htmlAttributes();
         $attr['method'] = $this->method();
-        $attr['action'] = $this->action();
+        if ($this->action()) {
+            $attr['action'] = $this->action();
+        }
         return $attr;
     }
 
