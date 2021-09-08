@@ -4,7 +4,7 @@ namespace Formward\Fields;
 
 use Formward\AbstractField;
 use Formward\FieldInterface;
-use Symfony\Component\Yaml\Yaml as YamlParser;
+use Spyc;
 
 class YAML extends Textarea
 {
@@ -58,7 +58,7 @@ class YAML extends Textarea
         if (is_null($value)) {
             return [];
         }
-        return YamlParser::parse($value);
+        return Spyc::YAMLLoadString($value);
     }
 
     /**
@@ -72,6 +72,6 @@ class YAML extends Textarea
         if (is_string($value)) {
             return $value;
         }
-        return YamlParser::dump($value);
+        return Spyc::YAMLDump($value);
     }
 }
