@@ -117,14 +117,6 @@ class Form extends AbstractContainer implements FormInterface
         return $this->systemFields['token']->value();
     }
 
-    public function &parent(FieldInterface &$parent = null): ?FieldInterface
-    {
-        if ($parent !== null) {
-            throw new \Exception("Top-level forms can't be nested in other Containers");
-        }
-        return parent::parent($parent);
-    }
-
     protected function validationMessagesHTML()
     {
         $out = [];
