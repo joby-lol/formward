@@ -1,5 +1,6 @@
 <?php
 /* Formward | https://github.com/jobyone/formward | MIT License */
+
 namespace Formward\Fields;
 
 use Formward\AbstractField;
@@ -39,7 +40,7 @@ class Input extends AbstractField
     {
         $value = parent::value($set);
         if (is_string($value)) {
-            return trim($value);
+            return trim($value, ' \t\0\x0B');
         }
         return $value;
     }
