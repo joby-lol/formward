@@ -40,7 +40,7 @@ class Input extends AbstractField
     {
         $value = parent::value($set);
         if (is_string($value)) {
-            return trim($value, ' \t\0\x0B');
+            return trim($value, ' ');
         }
         return $value;
     }
