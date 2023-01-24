@@ -12,7 +12,7 @@
     "require": {
         "php": ">=7.1",
         "byjoby/sesh": "^0.1.0",
-        "byjoby/html-object-strings": "dev-main",
+        "byjoby/html-object-strings": "~1",
         "byjoby/flatrr": "^1"
     },
     "autoload": {
